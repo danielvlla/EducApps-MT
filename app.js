@@ -10,17 +10,17 @@ mongoose.connect("mongodb://localhost/educappmt");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-Review.create({
-    name: "Mindmap",
-    image: "http://www.mindtools.com/media/Diagrams/mindmap.jpg"
-}, function(err, review){
-    if(err){
-        console.log(err);
-    } else {
-        console.log("created review");
-        console.log(review);
-    }
-});
+// Review.create({
+//     name: "Mindmap",
+//     image: "http://www.mindtools.com/media/Diagrams/mindmap.jpg"
+// }, function(err, review){
+//     if(err){
+//         console.log(err);
+//     } else {
+//         console.log("created review");
+//         console.log(review);
+//     }
+// });
 
 // ROUTES
 var indexRoutes   = require("./routes/index");
