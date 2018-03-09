@@ -11,21 +11,12 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-// Review.create({
-//     name: "Mindmap",
-//     image: "http://www.mindtools.com/media/Diagrams/mindmap.jpg"
-// }, function(err, review){
-//     if(err){
-//         console.log(err);
-//     } else {
-//         console.log("created review");
-//         console.log(review);
-//     }
-// });
-
 // ROUTES
 var indexRoutes   = require("./routes/index");
+var applicationRoutes  = require("./routes/applications");
+
 app.use("/", indexRoutes);
+app.use("/applications", applicationRoutes);
 
 app.listen(3000, function(){
     console.log("App is running");

@@ -1,0 +1,15 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <h1>Submit a New App</h1>
+
+    <form action="/applications" method="post">
+        <div class="form-group">
+            <input class="form-control" type="text" name="appUrl" placeholder="App URL">
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary">Add App!</button>
+    </form>
+    <a href="/applications">Go Back</a>
+
+<% include ../partials/footer %>
