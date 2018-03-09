@@ -1,6 +1,4 @@
 var express     = require("express");
-var rp          = require('request-promise');
-var cheerio     = require('cheerio');
 var router      = express.Router();
 var Application = require("../models/application");
 
