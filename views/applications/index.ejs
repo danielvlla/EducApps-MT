@@ -8,4 +8,19 @@
         </div>
     </header>
 
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Reviewed Apps</h3>
+        </div>
+            <% applications.forEach(function(application){ %>
+                <div class="col-md-3 col-sm-6">
+                    <h4><%= application.name %></h4>
+                    <p>
+                        <a href="/applications/<%= application._id %>" class="btn btn-primary">More Info</a>
+                    </p>
+                </div>
+            <% }) %>
+    </div>
+</div>
+
 <% include ../partials/footer %>

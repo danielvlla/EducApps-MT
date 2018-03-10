@@ -3,9 +3,16 @@ var mongoose = require("mongoose");
 // Review Schema
 var reviewSchema = new mongoose.Schema({
     author: String,
-    stars: String,
+    stars: Number,
     reviewTitle: String,
     reviewText: String,
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        username: String
+    },
     reviewedAt: {
         type: Date,
         default: Date.now
