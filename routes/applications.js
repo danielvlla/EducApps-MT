@@ -1,6 +1,7 @@
 var express     = require("express");
 var router      = express.Router();
 var Application = require("../models/application");
+var gplay       = require('google-play-scraper');
 
 // ================================
 // APPLICATION ROUTES
@@ -34,7 +35,7 @@ router.post("/", function(req, res) {
 
 // NEW ROUTE - Show form to create/list new application
 router.get("/new", function(req, res) {
-    res.render("applications/new");
+    res.render("applications/new"); 
 });
 
 // SHOW ROUTE - Show an Application

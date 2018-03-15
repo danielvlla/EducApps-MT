@@ -1,15 +1,26 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <h1>Submit a New App</h1>
+    <div class="py-5 text-center">
+        <h1>Submit a New App</h1>
+        <p class="lead">Open the <a href="https://play.google.com/store/apps">Google Play Store</a>, find your app and paste the link of the app below.</p>
+    </div>
 
-    <form action="/applications" method="post">
-        <div class="form-group">
-            <input class="form-control" type="text" name="appUrl" placeholder="App URL">
+    <div class="py-2">
+        <div class="row justify-content-md-center text-center">
+            <form action="/applications" method="post">
+                <div class="form-group py-2">
+                    <label>App URL</label>
+                    <input type="text" class="form-control" name="appUrl" placeholder="App URL">
+                    <small class="form-text text-muted">Make sure you pasted the correct URL.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Review App!</button>
+            </form>
         </div>
+    </div>
 
-        <button type="submit" class="btn btn-lg btn-primary">Add App!</button>
-    </form>
-    <a href="/applications">Go Back</a>
+    <div class="py-5 text-center">
+        <a href="/applications">Go Back</a>
+    </div>
 
 <% include ../partials/footer %>
