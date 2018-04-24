@@ -2,18 +2,31 @@ var mongoose = require("mongoose");
 
 // Review Schema
 var reviewSchema = new mongoose.Schema({
-    author: String,
-    stars: Number,
-    reviewTitle: String,
-    reviewText: String,
+    author: {
+        type: String,
+        // required: true
+    },
+    rating: {
+        design: Number,
+        effectiveness: Number,
+        usability: Number,
+        content: Number,
+        total: Number
+    },
+    title: {
+        type: String
+    },
+    description: {
+        type: String,
+        // required: true
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
-        },
-        username: String
+        }
     },
-    reviewedAt: {
+    created: {
         type: Date,
         default: Date.now
     }

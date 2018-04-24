@@ -33,7 +33,7 @@ router.post("/", function(req, res) {
     });
 });
 
-// NEW ROUTE - Show form to create/list new application
+// NEW ROUTE - Show form to create new application
 router.get("/new", function(req, res) {
     res.render("applications/new"); 
 });

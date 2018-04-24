@@ -1,15 +1,38 @@
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
 
-// Review Schema
+// User Schema
 var userSchema = new mongoose.Schema({
-    username: String,
-    password: String,
-    isParent: {type: Boolean, default: false},
-    isTeacher: {type: Boolean, default: false},
-    year: {type: Number, default: 0},
-    isVerified: {type: Boolean, default: false},
-    isAdmin: {type: Boolean, default: false}
+    email: {
+      type: String,
+      // required: true,
+      unique: true
+    },
+    password: {
+        type: String,
+        // required: true
+    },
+    name: {
+        firstName:
+            {
+                type: String,
+                // required: true
+            },
+        lastName:
+            {
+                type: String,
+                // required: true
+            }
+    },
+    role: {
+        type: String,
+        enum: ["teacher", "parent"]
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    admin: Boolean
 });
 
 userSchema.plugin(passportLocalMongoose);

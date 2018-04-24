@@ -1,14 +1,31 @@
 var mongoose = require("mongoose");
 
-// Review Schema
+// Application Schema
 var applicationSchema = new mongoose.Schema({
-    url: String,
-    name: String,
-    description: String,
+    url: {
+        type: String,
+        // required: true
+    },
+    name: {
+        type: String,
+        // required: true
+    },
+    description: {
+        type: String,
+        // required: true
+    },
     thumbnail: String,
-    topic: String,
+    category: [{
+        type: String,
+        enum: ["general", "maths", "english", "maltese", "religion"]
+    }],
     stars: Number,
-    images: [String],
+    author: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        }
+    },
     reviews: [
         {
             type: mongoose.Schema.Types.ObjectId,
