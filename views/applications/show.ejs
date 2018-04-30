@@ -1,4 +1,5 @@
 <% include ../partials/header %>
+<% include ../partials/navbar %>
 
 <div class="container">
     <div class="row justify-content-md-center">
@@ -13,11 +14,12 @@
             <form class="delete-form" action="/applications/<%= application._id %>?_method=DELETE" method="post">
                 <button class="btn btn-sm btn-outline-danger">Delete</button>
             </form>
+            <br>
         </div>
 
     </div>
 
-    <!-- COMMENT SECTION START -->
+    <!-- REVIEW SECTION START -->
     <div class="row justify-content-md-center">
         <div class="col-md-9">
             <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalCenter">
@@ -34,17 +36,17 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="/applications/<%= application._id %>/reviews" method="POST">
+                            <form action="/applications/<%= application._id %>/reviews" method="POST" id="add-review-form">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="title" placeholder="Name your Review" type="text" form="add-review-form" class="text-muted"></input>
+                                    <input type="text" class="form-control" name="title" placeholder="Name your Review" form="add-review-form" class="text-muted">
                                 </div>
 
                                 <div class="form-group">
                                     <textarea class="form-control" name="description" placeholder="Share your experience from using this application" type="text" form="add-review-form" class="text-muted"></textarea>
                                 </div>
 
-                                <input type="submit" value="Submit" class="btn btn-primary">
                                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" value="Submit" class="btn btn-outline-success">
                             </form>
                         </div>
 
@@ -53,6 +55,28 @@
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-md-9">
+
+            <% if (application.reviews.length === 0) { %>
+                <p class="text-muted">No Comments Yet</p>
+            <% } %>
+
+            <% application.reviews.forEach(function(review) { %>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= review.title %></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><%= moment(review.created).fromNow() %></h6>
+                        <p class="card-text"><%= review.description %></p>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+
+
 </div>
 
 <% include ../partials/footer %>

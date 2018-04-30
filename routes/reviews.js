@@ -8,7 +8,7 @@ var Review      = require("../models/review");
 // ================================
 
 // Submit Review ie. Create Review
-router.post("/", function(req, res){
+router.post("", function(req, res){
     // Look up application
     Application.findById(req.params.id, function(err, application){
         if (err) {
@@ -28,7 +28,6 @@ router.post("/", function(req, res){
                     review.save();
                     application.reviews.push(review._id);
                     application.save();
-
                     res.redirect("/applications/" + application._id);
                 }
             });

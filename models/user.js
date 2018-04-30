@@ -32,7 +32,10 @@ var userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    admin: Boolean
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 });
 
 userSchema.plugin(passportLocalMongoose);

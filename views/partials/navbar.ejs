@@ -1,0 +1,110 @@
+<nav class="navbar-expand-lg navbar navbar-light bg-transparent">
+    <div class="container p-2">
+        <a class="navbar-brand" href="/">EducApps MT</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <nav class="navbar-nav ml-auto">
+                <a class="nav-link pl-5 " href="/login" data-toggle="modal" data-target="#ModalLogin">Login</a>
+                <a class="nav-link pl-5" href="/register" data-toggle="modal" data-target="#ModalRegister">Signup</a>
+                <a class="nav-link pl-5" href="/logout">Logout</a>
+            </nav>
+        </div>
+    </div>
+</nav>
+
+<!-- Login Modal -->
+<div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="ModalLoginTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Login to your Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/login" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Username" class="text-muted">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="password" placeholder="Password" form="add-review-form" class="text-muted">
+                    </div>
+
+                    <div class="text-center">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Login" class="btn btn-outline-primary">
+                    </div>
+
+                    <hr>
+
+                    <div class="text-center">
+                        Don't have an account? <a data-dismiss="modal" href="/register" data-toggle="modal" data-target="#ModalRegister">Register</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div class="modal fade" id="ModalRegister" tabindex="-1" role="dialog" aria-labelledby="ModalRegisterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Register an Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/register" method="POST">
+                    <div class="form-row form-group">
+                        <div class="col">
+                            <input type="text" name="name" class="form-control" placeholder="First Name" class="text-muted">
+                        </div>
+                        <div class="col">
+                            <input type="text" name="surname" class="form-control" placeholder="Last Name" class="text-muted">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="email" placeholder="E-mail" class="text-muted">
+                    </div>
+
+                    <div class="form-group">
+                        <input id="password" type="password" class="form-control" placeholder="Password" name="password">
+                    </div>
+
+                    <!--<div>-->
+                        <!--<label for="checkbox">I'm Registering as a</label>-->
+
+                        <!--<div class="custom-control custom-radio">-->
+                            <!--<input type="radio" id="teacher" name="role" class="custom-control-input">-->
+                            <!--<label class="custom-control-label" for="Teacher">Teacher</label>-->
+                        <!--</div>-->
+                        <!--<div class="custom-control custom-radio">-->
+                            <!--<input type="radio" id="parent" name="role" class="custom-control-input">-->
+                            <!--<label class="custom-control-label" for="Parent">Parent</label>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                    <hr>
+
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Register" class="btn btn-outline-primary">
+                    </div>
+
+                    <hr>
+
+                    <div class="text-center">
+                        Already have an account? <a data-dismiss="modal" href="/login" data-toggle="modal" data-target="#ModalLogin">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

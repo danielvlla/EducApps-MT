@@ -16,28 +16,18 @@ router.get("/", function(req, res){
 // AUTHENTICATION ROUTES
 // ================================
 
-// SHOW REGISTER FORM
-router.get("/register", function(req, res){
-    res.render("register");
-});
-
 // HANDLE SIGN UP LOGIC
 router.post("/register", function(req, res){
-    var newUser = new User({username: req.body.username});
+    var newUser = new User({username: req.body.email, email: req.body.email});
     User.register(newUser, req.body.password, function(err, user){
         if(err){
             console.log(err.message);
-            return res.redirect("/register");
+            return res.redirect("/");
         }
         passport.authenticate("local")(req, res, function(){
             res.redirect("/applications");
         });
     });
-});
-
-// SHOW LOGIN FORM
-router.get("/login", function(req, res){
-    res.render("login");
 });
 
 // HANDLE LOGIN LOGIC

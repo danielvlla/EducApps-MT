@@ -61,13 +61,12 @@ router.get("/new", function(req, res) {
 
 // SHOW ROUTE - Show an Application
 router.get("/:id", function(req, res){
-    Application.findById(req.params.id, function(err, foundApplication){
-        // found campground can return null if the id is valid but it doesnt exist
+    Application.findById(req.params.id).populate("reviews").exec(function(err, foundApplication){
+
         if (err || !foundApplication) {
             console.log(err);
             res.redirect("back");
         } else {
-            console.log(foundApplication);
             res.render("applications/show", {application: foundApplication});
         }
     });
