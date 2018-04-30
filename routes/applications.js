@@ -20,9 +20,15 @@ router.get("/", function(req, res){
 
 // CREATE ROUTE - Add New Application
 router.post("/", function(req, res) {
+
     var url = req.body.appUrl;
 
-    var newApplication = {url: url};
+    var app_id = url.substring(url.indexOf("details?id=")+11);
+
+    gplay.app({appId: app_id})
+        .then (console.log, console.log);
+
+    var newApplication = {name: app_id};
 
     Application.create(newApplication, function(err, newlyCreated){
         if (err) {

@@ -29,6 +29,9 @@ var reviewSchema = new mongoose.Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    isAnonymous: {
+        type: Boolean
     }
 });
 
