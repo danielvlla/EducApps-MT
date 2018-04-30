@@ -16,8 +16,10 @@
                 <div class="col-md-3 col-sm-6">
                     <h4><%= application.name %></h4>
                     <p>
-                        <a href="/applications/<%= application.name %>" class="btn btn-primary">More Info</a>
+                        <a href="/applications/<%= application._id %>" class="btn btn-primary">More Info</a>
                     </p>
+                    <p><%= application.description %></p>
+                    <img src="<%= application.thumbnail %>">
                 </div>
             <% }) %>
     </div>

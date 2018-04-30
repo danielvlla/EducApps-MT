@@ -1,7 +1,9 @@
 var express     = require("express");
 var router      = express.Router();
 var Application = require("../models/application");
-var gplay       = require('google-play-scraper');
+// var gplay    = require('google-play-scraper');
+var rp          = require('request-promise');
+var cheerio     = require('cheerio');
 
 // ================================
 // APPLICATION ROUTES
@@ -23,22 +25,33 @@ router.post("/", function(req, res) {
 
     var url = req.body.appUrl;
 
-    var app_id = url.substring(url.indexOf("details?id=")+11);
-
-    // var gplay = require('google-play-scraper');
-
-    gplay.app({appId: 'com.dxco.pandavszombies'})
-        .then(console.log, console.log);
-
-    var newApplication = {name: app_id};
-
-    Application.create(newApplication, function(err, newlyCreated){
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect("/applications");
+    const options = {
+        uri: url,
+        transform: function (body) {
+            return cheerio.load(body);
         }
-    });
+    };
+
+    rp(options)
+        .then(($) => {
+            var appTitle = $('.AHFaub').find('span').text();
+            var appDescription = $('.DWPxHb').find('content').find('div').text();
+            var appImageUrl = $('.dQrBL').find('img').attr('src').toString();
+            var playStoreRating = $('.BHMmbe').text();
+
+            var newApplication = {url: url, name: appTitle, description: appDescription, thumbnail: appImageUrl, playStore: playStoreRating};
+
+            Application.create(newApplication, function(err, newlyCreated){
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.redirect("/applications");
+                }
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 });
 
 // NEW ROUTE - Show form to create new application
