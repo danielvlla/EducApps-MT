@@ -25,8 +25,10 @@ router.post("/", function(req, res) {
 
     var app_id = url.substring(url.indexOf("details?id=")+11);
 
-    gplay.app({appId: app_id})
-        .then (console.log, console.log);
+    // var gplay = require('google-play-scraper');
+
+    gplay.app({appId: 'com.dxco.pandavszombies'})
+        .then(console.log, console.log);
 
     var newApplication = {name: app_id};
 
