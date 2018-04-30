@@ -32,24 +32,14 @@ router.post("/", function(req, res) {
         }
     };
 
-<<<<<<< HEAD
-    // var gplay = require('google-play-scraper');
-
-    gplay.app({appId: 'com.dxco.pandavszombies'})
-        .then(console.log, console.log);
-=======
     rp(options)
         .then(($) => {
             var appTitle = $('.AHFaub').find('span').text();
-            var appDescription = $('.sngebd').text();
-            var appImageUrl = $('.dQrBL').attr('src').text();
-            var author = {
-                id: req.user._id,
-            };
+            var appDescription = $('.DWPxHb').find('content').find('div').text();
+            var appImageUrl = $('.dQrBL').find('img').attr('src').toString();
             var playStoreRating = $('.BHMmbe').text();
->>>>>>> Coded our web scraper
 
-            var newApplication = {url: url, name: appTitle, description: appDescription, thumbnail: appImageUrl, author: author, playStore: playStoreRating};
+            var newApplication = {url: url, name: appTitle, description: appDescription, thumbnail: appImageUrl, playStore: playStoreRating};
 
             Application.create(newApplication, function(err, newlyCreated){
                 if (err) {
