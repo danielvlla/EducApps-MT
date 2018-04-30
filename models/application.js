@@ -19,7 +19,10 @@ var applicationSchema = new mongoose.Schema({
         type: String,
         enum: ["general", "maths", "english", "maltese", "religion"]
     }],
-    stars: Number,
+    rating: {
+        playStore: Number,
+        users: Number
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
