@@ -8,7 +8,7 @@ var Review      = require("../models/review");
 // ================================
 
 // Submit Review ie. Create Review
-router.post("", function(req, res){
+router.post("/", function(req, res){
     // Look up application
     Application.findById(req.params.id, function(err, application){
         if (err) {
@@ -16,18 +16,19 @@ router.post("", function(req, res){
             res.redirect("/applications");
         } else {
             // Create New Review
-            Review.create(req.body.review, function(err, review){
+            var title = req.body.title;
+            var description = req.body.description;
+
+            var newReview = {title: title, description: description};
+
+            Review.create(newReview, function(err, review){
                 if (err){
                     console.log(err);
                 } else {
-                    // Add Username and ID to review
-                    review.author.id = req.user._id;
-                    review.author.username = req.user.username;
                     review.save();
-                    // Connect New Review to Application
                     application.reviews.push(review._id);
                     application.save();
-                    // Redirect Campground Show Page
+
                     res.redirect("/applications/" + application._id);
                 }
             });

@@ -1,34 +1,55 @@
 <% include ../partials/header %>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <p class="lead">EducApps MT</p>
-            <div class="list-group">
-                <li class="list-group-item active">Info 1</li>
-                <li class="list-group-item">Info 2</li>
-                <li class="list-group-item">Info 3</li>
-            </div>
-        </div>
+    <div class="row justify-content-md-center">
         <div class="col-md-9">
-            <h4><a><%= application.url %></a></h4>
+            <div class="jumbotron rounded bg-dark">
+                <img src="<%= application.thumbnail%>">
+                <h4><a href="<%= application.url %>" target="_blank"><%= application.name %></a></h4>
+            </div>
+            <p class="text-muted"><%= application.description.substr(0, 500) %> <a href="<%= application.url %>">... Read more</a></p>
 
-            <a class="btn btn-warning" href="/applications/<%= application._id %>/edit">Edit</a>
-            
+            <a class="btn btn-sm btn-outline-warning" href="/applications/<%= application._id %>/edit">Edit</a>
             <form class="delete-form" action="/applications/<%= application._id %>?_method=DELETE" method="post">
-                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-sm btn-outline-danger">Delete</button>
             </form>
+        </div>
 
-            <!-- COMMENT SECTION START --> 
-            <div class="card bg-light mb-3">
-                <div class="text-right">
-                    <a class="btn btn-success" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample" href="#collapseComment" role="button">
-                        Add new comment
-                    </a>
+    </div>
+
+    <!-- COMMENT SECTION START -->
+    <div class="row justify-content-md-center">
+        <div class="col-md-9">
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalCenter">
+                Write your Review
+            </button>
+
+            <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="ModalLongTitle">Write your Review!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/applications/<%= application._id %>/reviews" method="POST">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="title" placeholder="Name your Review" type="text" form="add-review-form" class="text-muted"></input>
+                                </div>
+
+                                <div class="form-group">
+                                    <textarea class="form-control" name="description" placeholder="Share your experience from using this application" type="text" form="add-review-form" class="text-muted"></textarea>
+                                </div>
+
+                                <input type="submit" value="Submit" class="btn btn-primary">
+                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                            </form>
+                        </div>
+
+                    </div>
                 </div>
-                <!--Comment section title-->
-                <h4 class="card-title">Reviews</h4>
-                <hr>
             </div>
         </div>
     </div>
