@@ -13,14 +13,19 @@
             <h3>Reviewed Apps</h3>
         </div>
             <% applications.forEach(function(application){ %>
-                <div class="col-md-3 col-sm-6">
-                    <h4><%= application.name %></h4>
-                    <p>
-                        <a href="/applications/<%= application._id %>" class="btn btn-primary">More Info</a>
-                    </p>
-                    <p><%= application.description %></p>
-                    <img src="<%= application.thumbnail %>">
+            <div class="col-md-3 col-sm-6">
+
+                <div class="card">
+                    <img class="card-img-top" src="<%= application.thumbnail %>" alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-title"><%= application.name %></p>
+                        <p class="card-text">
+                            <a href="/applications/<%= application._id %>" class="btn btn-outline-primary btn-sm">More Info</a>
+                        </p>
+                    </div>
                 </div>
+
+            </div>
             <% }) %>
     </div>
 </div>
