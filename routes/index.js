@@ -52,9 +52,9 @@ router.post("/register", function(req, res){
     });
 });
 
-router.post('/login', passport.authenticate('local'), function(req, res) {
+router.post('/login', function(req, res) {
     console.log(req.body.email);
-    console.log(req.body.password);
+    passport.authenticate('local');
     res.redirect('/');
 });
 
