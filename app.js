@@ -3,10 +3,11 @@ var express         = require("express"),
     bodyParser      = require("body-parser"),
     flash           = require("connect-flash"),
     session         = require("express-session"),
-    methodOverride  = require("method-override"),
+    mongoose        = require("mongoose"),
     passport        = require("passport"),
+    cookieParser    = require("cookie-parser"),
     LocalStrategy   = require("passport-local").Strategy,
-    mongoose        = require("mongoose");
+    methodOverride  = require("method-override");
 
 // MODELS
 var Application     = require("./models/application"),
@@ -22,12 +23,12 @@ mongoose.connect("mongodb://daniel:danielpassword@ds261138.mlab.com:61138/educap
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(flash());
-app.use(methodOverride("_method"));
-app.use(express.static(__dirname + '/public'));
 app.set("view engine", "ejs");
+app.use(methodOverride("_method"));
+app.use(cookieParser("secret"));
+app.use(express.static(__dirname + "/public"));
 app.locals.moment = require("moment");
-
+app.use(flash());
 app.use(session({
     secret: "CIS GAPT",
     resave: false,
@@ -40,7 +41,7 @@ app.use(passport.session());
 
 passport.use(new LocalStrategy({
     usernameField: "email",
-    passwordField: "password",
+    passwordField: "password"
 }, User.authenticate()));
 
 passport.serializeUser(User.serializeUser());

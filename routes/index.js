@@ -46,16 +46,18 @@ router.post("/register", function(req, res){
             return res.redirect("/register");
         }
         passport.authenticate("local")(req, res, function(){
-            req.flash("success", "Welcome to EducAppsMT " + user.name.firstName);
+            console.log("Welcome to EducAppsMT " + user.name.firstName);
             res.redirect("/applications");
         });
     });
 });
 
-router.post('/login', function(req, res) {
+router.post("/login", function(req, res) {
     console.log(req.body.email);
-    passport.authenticate('local');
-    res.redirect('/');
+    passport.authenticate("local")(req, res, function(){
+        console.log("Welcome to EducAppsMT " + user.name.firstName);
+        res.redirect("/applications");
+    });
 });
 
 router.get("/logout", function(req, res){
