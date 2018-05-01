@@ -22,12 +22,6 @@ router.get("/profile", middleware.isLoggedIn, function(req, res){
 // AUTHENTICATION ROUTES
 // ================================
 
-// router.post("/register", passport.authenticate("local.register", {
-//     successRedirect: "/applications",
-//     failureRedirect: "/",
-//     failureFlash: true
-// }));
-
 router.post("/register", function(req, res){
 
     var newUser = new User({
@@ -46,18 +40,16 @@ router.post("/register", function(req, res){
             return res.redirect("/register");
         }
         passport.authenticate("local")(req, res, function(){
-            console.log("Welcome to EducAppsMT " + user.name.firstName);
+            console.log("Registered to EducAppsMT " + user.username);
             res.redirect("/applications");
         });
     });
 });
 
-router.post("/login", function(req, res) {
-    console.log(req.body.email);
-    passport.authenticate("local")(req, res, function(){
-        console.log("Welcome to EducAppsMT " + user.name.firstName);
+router.post("/login",
+    passport.authenticate("local", { failureRedirect: "/login" }),
+    function(req, res) {
         res.redirect("/applications");
-    });
 });
 
 router.get("/logout", function(req, res){

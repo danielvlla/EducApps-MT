@@ -29,13 +29,12 @@ app.use(cookieParser("secret"));
 app.use(express.static(__dirname + "/public"));
 app.locals.moment = require("moment");
 app.use(flash());
+
 app.use(session({
     secret: "CIS GAPT",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
 }));
-
-// Passport CONFIG
 app.use(passport.initialize());
 app.use(passport.session());
 
