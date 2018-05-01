@@ -1,12 +1,16 @@
 <% include ../partials/header %>
 <% include ../partials/navbar %>
 
-<div class="container">
-    <div class="py-5 text-center">
-        <h1>Submit a New App</h1>
-        <p class="lead">Open the <a href="https://play.google.com/store/apps">Google Play Store</a>, find your app and paste the link of the app below.</p>
+<div class="page-header">
+    <div class="container">
+        <div class="jumbotron text-center bg-transparent">
+            <h1 class="jumbotron-heading">Submit a New App</h1>
+            <p class="lead">Open the <a href="https://play.google.com/store/apps">Google Play Store</a>, find your app and paste the link of the app below.</p>
+        </div>
     </div>
+</div>
 
+<div class="container">
     <div class="py-2">
         <div class="row justify-content-md-center text-center">
             <form action="/applications" method="post">

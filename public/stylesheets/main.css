@@ -9,19 +9,44 @@
 html {
     font-size: 100%;
     font-family: 'Open Sans', sans-serif;
-    height: 100%;
+    font-size: 16px;
 }
 
 body {
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
-    height: 100%;
+    background-repeat: no-repeat;
 }
 
 .footer {
     position: relative;
+    padding: 5rem;
+    margin-top: 5rem;
     font-size: 0.8rem;
     right: 0;
     bottom: 0;
     left: 0;
+}
+
+.page-header {
+    color: white;
+    margin-top: -100px;
+    height: 45vh;
+    background: #00d2ff;
+    background: -webkit-linear-gradient(to right, #3a7bd5, #00d2ff);
+    background: linear-gradient(to right, #3a7bd5, #00d2ff);
+}
+
+div .jumbotron {
+    padding-top: 15%;
+}
+
+.jumbotron-heading a {
+    color: #FFCC46;
+    text-decoration: none;
+}
+
+.lead a {
+    color: #FFCC46;
+    text-decoration: none;
 }

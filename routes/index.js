@@ -18,12 +18,17 @@ router.get("/", function(req, res){
 
 // HANDLE SIGN UP LOGIC
 router.post("/register", function(req, res){
-    var newUser = new User({username: req.body.email, email: req.body.email});
+    var newUser = new User({
+        username: req.body.email,
+        email: req.body.email
+    });
     User.register(newUser, req.body.password, function(err, user){
+
         if(err){
             console.log(err.message);
             return res.redirect("/");
         }
+
         passport.authenticate("local")(req, res, function(){
             res.redirect("/applications");
         });
