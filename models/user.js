@@ -1,32 +1,26 @@
-var mongoose = require("mongoose");
-var passportLocalMongoose = require("passport-local-mongoose");
+var mongoose  = require("mongoose");
+var passportLocalMongoose   = require("passport-local-mongoose");
 
-// User Schema
-var userSchema = new mongoose.Schema({
-    email: {
-      type: String,
-      // required: true,
-      unique: true
-    },
-    password: {
-        type: String,
-        // required: true
-    },
+var UserSchema = new mongoose.Schema({
     name: {
         firstName:
             {
                 type: String,
-                // required: true
             },
         lastName:
             {
                 type: String,
-                // required: true
             }
+    },
+    email: {
+        type: String,
+    },
+    password: {
+        type: String,
     },
     role: {
         type: String,
-        enum: ["teacher", "parent"]
+        enum: ["Teacher", "Parent"]
     },
     created: {
         type: Date,
@@ -35,12 +29,15 @@ var userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    provider: {
+        type: String
     }
 });
 
-userSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose);
 
 // Create MODEL from schema which contains mongoose methods
-var User = mongoose.model("User", userSchema);
+var User = mongoose.model("User", UserSchema);
 
 module.exports = User;

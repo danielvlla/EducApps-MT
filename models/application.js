@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 
 // Application Schema
-var applicationSchema = new mongoose.Schema({
+var ApplicationSchema = new mongoose.Schema({
     url: {
         type: String,
         // required: true
@@ -38,6 +38,6 @@ var applicationSchema = new mongoose.Schema({
 });
 
 // Create MODEL from schema which contains mongoose methods
-var Application = mongoose.model("Application", applicationSchema);
+var Application = mongoose.model("Application", ApplicationSchema);
 
 module.exports = Application;
