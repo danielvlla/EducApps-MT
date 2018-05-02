@@ -4,15 +4,12 @@ var mongoose = require("mongoose");
 var ApplicationSchema = new mongoose.Schema({
     url: {
         type: String,
-        // required: true
     },
     name: {
         type: String,
-        // required: true
     },
     description: {
         type: String,
-        // required: true
     },
     thumbnail: String,
     category: [{

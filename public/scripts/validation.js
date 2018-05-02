@@ -1,5 +1,18 @@
 $(function(){
 
+    $.validator.setDefaults({
+       highlight: function(element){
+           $(element)
+               .closest(".form-control")
+               .addClass("invalid-feedback");
+       },
+       unhighlight: function(element){
+            $(element)
+                .closest(".form-control")
+                .removeClass("invalid-feedback");
+        }
+    });
+
     $.validator.addMethod("strongPassword", function(value, element){
         return this.optional(element)
             || value.length >= 6
@@ -22,7 +35,8 @@ $(function(){
             email: {
                 required: true,
                 email: true,
-                minlength: true
+                minlength: true,
+                remote: ''
             },
             password: {
                 required: true,
@@ -74,6 +88,25 @@ $(function(){
             email: {
                 required: "E-mail address is required to login",
                 email: "Please enter a <strong>valid</strong> e-mail address."
+            }
+        }
+    });
+
+    $(".app-new").validate({
+        rules: {
+            appUrl: {
+                required: true,
+            },
+            category: {
+                required: true
+            }
+        },
+        messages: {
+            appUrl: {
+                required: "URL is required to get its data",
+            },
+            category: {
+                required: "Category is required"
             }
         }
     });

@@ -1,7 +1,6 @@
 var express     = require("express");
 var router      = express.Router();
 var Application = require("../models/application");
-// var gplay    = require('google-play-scraper');
 var rp          = require('request-promise');
 var cheerio     = require('cheerio');
 
@@ -56,7 +55,8 @@ router.post("/", function(req, res) {
 
 // NEW ROUTE - Show form to create new application
 router.get("/new", function(req, res) {
-    res.render("applications/new"); 
+    Application.category
+    res.render("applications/new");
 });
 
 // SHOW ROUTE - Show an Application
