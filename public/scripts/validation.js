@@ -1,17 +1,25 @@
 $(function(){
 
-    // $.validator.setDefaults({
-    //    highlight: function(element){
-    //        $(element)
-    //            .closest(".form-control")
-    //            .addClass("invalid-feedback");
-    //    },
-    //    unhighlight: function(element){
-    //         $(element)
-    //             .closest(".form-control")
-    //             .removeClass("invalid-feedback");
-    //     }
-    // });
+    $.validator.setDefaults({
+        errorClass: "invalid-feedback",
+        highlight: function(element){
+            $(element)
+                .closest(".form-control")
+                .addClass("is-invalid");
+        },
+        unhighlight: function(element){
+                $(element)
+                    .closest(".form-control")
+                    .removeClass("is-invalid");
+        },
+        errorPlacement: function(error, element){
+            if(element.prop("type") === "checkbox") {
+                error.insertAfter(element.parent());
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
 
     $.validator.addMethod("strongPassword", function(value, element){
         return this.optional(element)
@@ -51,12 +59,12 @@ $(function(){
             firstname: {
                 required: "First name is required",
                 lettersonly: "Only include characters",
-                minlength: "Your name must longer than 2 letters"
+                minlength: "Your name must be longer than 2 letters"
             },
             lastname: {
                 required: "Surname is required",
                 lettersonly: "Only include characters",
-                minlength: "Your surname must longer than 2 letters"
+                minlength: "Your surname must be longer than 2 letters"
             },
             email: {
                 required: "E-mail is required",
