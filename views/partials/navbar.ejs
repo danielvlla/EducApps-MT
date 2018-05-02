@@ -8,17 +8,17 @@
             <nav class="navbar-nav ml-auto">
                 <% if(!currentUser){ %>
                     <li class="nav-item">
-                        <a class="nav-link text-white pl-4" href="/login" data-toggle="modal" data-target="#ModalLogin">Login</a>
+                        <a class="nav-link text-white pl-4" href="/login" data-toggle="modal" data-target="#ModalLogin"><i class="fas fa-sign-in-alt"></i>  Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white pl-4" href="/register" data-toggle="modal" data-target="#ModalRegister">Signup</a>
+                        <a class="nav-link text-white pl-4" href="/register" data-toggle="modal" data-target="#ModalRegister"><i class="fa fa-user-plus"></i>  Signup</a>
                     </li>
                 <% } else { %>
                     <li class="nav-item">
-                        <a class="nav-link text-white pl-4" href="profile">Welcome <%= currentUser.name.firstName %></a>
+                        <a class="nav-link text-white pl-4" href="profile"><i class="fas fa-user-circle"></i>  <%= currentUser.name.firstName %></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ml-4 text-white border rounded border-danger" href="/logout">Logout</a>
+                        <a class="nav-link ml-4 text-white" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                 <% } %>
             </nav>

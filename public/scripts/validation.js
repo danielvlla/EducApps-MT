@@ -1,17 +1,17 @@
 $(function(){
 
-    $.validator.setDefaults({
-       highlight: function(element){
-           $(element)
-               .closest(".form-control")
-               .addClass("invalid-feedback");
-       },
-       unhighlight: function(element){
-            $(element)
-                .closest(".form-control")
-                .removeClass("invalid-feedback");
-        }
-    });
+    // $.validator.setDefaults({
+    //    highlight: function(element){
+    //        $(element)
+    //            .closest(".form-control")
+    //            .addClass("invalid-feedback");
+    //    },
+    //    unhighlight: function(element){
+    //         $(element)
+    //             .closest(".form-control")
+    //             .removeClass("invalid-feedback");
+    //     }
+    // });
 
     $.validator.addMethod("strongPassword", function(value, element){
         return this.optional(element)
@@ -36,7 +36,6 @@ $(function(){
                 required: true,
                 email: true,
                 minlength: true,
-                remote: ''
             },
             password: {
                 required: true,
@@ -95,7 +94,7 @@ $(function(){
     $(".app-new").validate({
         rules: {
             appUrl: {
-                required: true,
+                required: true
             },
             category: {
                 required: true
@@ -103,7 +102,7 @@ $(function(){
         },
         messages: {
             appUrl: {
-                required: "URL is required to get its data",
+                required: "URL is required to get its data"
             },
             category: {
                 required: "Category is required"
