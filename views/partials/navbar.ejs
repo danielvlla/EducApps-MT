@@ -1,6 +1,6 @@
 <nav class="navbar-expand-lg navbar navbar-dark bg-transparent">
     <div class="container p-3">
-        <a class="navbar-brand" href="/">EducApps MT</a>
+        <a class="navbar-brand" href="/">EDUCAPPS <em>mt</em></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,7 +37,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/login" method="POST">
+                <form action="/login" method="POST" class="login-form">
                     <div class="form-group">
                         <input type="text" class="form-control text-muted" name="email" placeholder="E-mail">
                     </div>
@@ -70,13 +70,13 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/register" method="POST">
+                <form action="/register" method="POST" class="register-form">
                     <div class="form-row form-group">
                         <div class="col">
-                            <input type="text" name="firstname" class="form-control" placeholder="First Name" class="text-muted">
+                            <input type="text" name="firstname" class="form-control text-muted" placeholder="First Name">
                         </div>
                         <div class="col">
-                            <input type="text" name="lastname" class="form-control" placeholder="Last Name" class="text-muted">
+                            <input type="text" name="lastname" class="form-control text-muted" placeholder="Last Name">
                         </div>
                     </div>
 
@@ -86,6 +86,10 @@
 
                     <div class="form-group">
                         <input id="password" type="password" class="form-control" placeholder="Password" name="password">
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Re-enter Password" name="password2">
                     </div>
 
                     <div>
@@ -109,13 +113,12 @@
                     <div class="form-group text-center">
                         <input type="submit" value="Register" class="btn btn-outline-primary">
                     </div>
+                </form>
 
                     <hr>
-
                     <div class="text-center">
                         Already have an account? <a data-dismiss="modal" href="/login" data-toggle="modal" data-target="#ModalLogin">Login</a>
                     </div>
-                </form>
             </div>
         </div>
     </div>
