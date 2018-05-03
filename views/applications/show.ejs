@@ -10,21 +10,32 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container mt-5">
     <div class="row justify-content-md-center">
-        <div class="col-md-9">
-            <div class="jumbotron rounded bg-dark">
-                <img src="<%= application.thumbnail%>">
-            </div>
-            <p class="text-muted"><%= application.description.substr(0, 500) %> <a href="<%= application.url %>">... Read more</a></p>
+        <div class="col-md-9 box-shadow border">
+            <div class="row">
+                <div class="col-md-8">
+                    <strong class="mb-2 text-success">Category</strong>
+                    <h3>
+                        <a class="text-dark"><%= application.name %></a>
+                    </h3>
+                    <div class="text-muted"><a target="_blank" href="<%= application.url %>">Download</a></div>
+                    <p class="card-text mb-auto text-muted">
+                        <%= application.description.substr(0, 500) %> <a href="<%= application.url %>">... Read more</a>
+                    </p>
+                </div>
 
-            <a class="btn btn-sm btn-outline-warning" href="/applications/<%= application._id %>/edit">Edit</a>
+                <div class="col-md-4">
+                    <img class="mt-5 text-right" src="<%= application.thumbnail %>" alt="App thumbnail">
+                </div>
+            </div>
+
             <form class="delete-form" action="/applications/<%= application._id %>?_method=DELETE" method="post">
+                <a class="btn btn-sm btn-outline-warning" href="/applications/<%= application._id %>/edit">Edit</a>
                 <button class="btn btn-sm btn-outline-danger">Delete</button>
             </form>
             <br>
         </div>
-
     </div>
 
     <!-- REVIEW SECTION START -->

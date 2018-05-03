@@ -15,6 +15,16 @@ router.post("", function(req, res){
             console.log(err);
             res.redirect("/applications");
         } else {
+
+            var rating = [req.body.design, req.body.effectiveness, req.body.usability, req.body.content];
+
+            var sum = 0;
+            for( var i = 0; i < rating.length; i++ ){
+                sum += parseInt(rating[i], 10);
+            }
+
+            var avg = sum/rating.length;
+
             // Create New Review
             var newReview = {
                 title: req.body.title,
@@ -23,7 +33,8 @@ router.post("", function(req, res){
                     design: req.body.design,
                     effectiveness: req.body.effectiveness,
                     usability: req.body.usability,
-                    content: req.body.content
+                    content: req.body.content,
+                    total: avg
                 }
             };
 
