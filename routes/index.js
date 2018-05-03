@@ -53,7 +53,7 @@ router.get("/login", function(req, res){
 });
 
 router.post("/login",
-    passport.authenticate("local", { failureRedirect: "/" }),
+    passport.authenticate("local", { failureRedirect: "/", failureFlash: true }),
     function(req, res) {
         req.flash("success", "Logged you in!");
         res.redirect("/applications");
