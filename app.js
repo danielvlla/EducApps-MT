@@ -8,7 +8,6 @@ var express         = require("express"),
     cookieParser    = require("cookie-parser"),
     LocalStrategy   = require("passport-local").Strategy,
     methodOverride  = require("method-override");
-
 // MODELS
 var Application     = require("./models/application"),
     Review          = require("./models/review"),
@@ -48,6 +47,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.message = req.flash("error");
     next();
 });
 

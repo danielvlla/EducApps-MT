@@ -20,6 +20,10 @@ var ApplicationSchema = new mongoose.Schema({
         playStore: Number,
         users: Number
     },
+    created: {
+        type: Date,
+        default: Date.now
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

@@ -22,6 +22,10 @@ var UserSchema = new mongoose.Schema({
         type: String,
         enum: ["Teacher", "Parent"]
     },
+    school: {
+        type: String,
+        enum: ["Attard", "Balzan", "B'kara", "Hamrun", "Mosta", "Gudja", "Qormi", "Valletta", "Mellieha"]
+    },
     created: {
         type: Date,
         default: Date.now

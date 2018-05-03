@@ -1,0 +1,34 @@
+<% include partials/_header %>
+<% include partials/_navbar %>
+
+<div class="page-login">
+    <div class="container">
+        <h1 class="text-center">Login to your account</h1>
+    </div>
+</div>
+
+<div class="mt-5 row justify-content-md-center">
+    <div class="col-md-3">
+        <form action="/login" method="POST" class="login-form-new">
+            <div class="form-group">
+                <label for="title">Username</label>
+                <input type="text" class="form-control text-muted" name="email" placeholder="eg. johndoe@gmail.com" autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="title">Password</label>
+                <input type="password" class="form-control text-muted" name="password" placeholder="Password">
+            </div>
+
+            <div class="text-center">
+                <input type="submit" value="Login" class="mb-3 btn btn-outline-primary">
+            </div>
+        </form>
+
+        <div class="text-center">
+            Don't have an account? <a data-dismiss="modal" href="/register" data-toggle="modal" data-target="#ModalRegister">Register</a>
+        </div>
+    </div>
+</div>
+
+<% include partials/_footer %>

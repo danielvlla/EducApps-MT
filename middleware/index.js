@@ -9,7 +9,7 @@ middlewareObj.isLoggedIn = function(req, res, next){
     }
     // Flash msg shows up on the FOLLOWING page (ie. login)
     console.log("You need to be logged in to do that");
-    res.redirect("/");
+    res.redirect("/login");
 };
 
 module.exports = middlewareObj;

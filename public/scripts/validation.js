@@ -99,6 +99,24 @@ $(function(){
         }
     });
 
+    $(".login-form-new").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true
+            }
+        },
+        messages: {
+            email: {
+                required: "E-mail address is required to login",
+                email: "Please enter a <strong>valid</strong> e-mail address."
+            }
+        }
+    });
+
     $(".app-new").validate({
         rules: {
             appUrl: {

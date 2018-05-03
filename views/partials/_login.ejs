@@ -1,0 +1,33 @@
+<div class="modal fade" id="ModalLogin" tabindex="-1" role="dialog" aria-labelledby="ModalLoginTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Login to your Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/login" method="POST" class="login-form">
+                    <div class="form-group">
+                        <label for="title">Username</label>
+                        <input type="text" class="form-control text-muted" name="email" placeholder="eg. johndoe@gmail.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title">Password</label>
+                        <input type="password" class="form-control text-muted" name="password" placeholder="Password">
+                    </div>
+
+                    <div class="text-center">
+                        <input type="submit" value="Login" class="btn btn-outline-primary">
+                    </div>
+                </form>
+                <hr>
+                <div class="text-center">
+                    Don't have an account? <a data-dismiss="modal" href="/register" data-toggle="modal" data-target="#ModalRegister">Register</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

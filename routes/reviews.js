@@ -2,6 +2,7 @@ var express     = require("express");
 var router      = express.Router({mergeParams: true});
 var Application = require("../models/application");
 var Review      = require("../models/review");
+var middleware  = require("../middleware");
 
 // ================================
 // REVIEW ROUTES

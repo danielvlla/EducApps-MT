@@ -18,6 +18,11 @@ body {
     background-repeat: no-repeat;
 }
 
+.navbar-nav .nav-link:hover {
+    color: #FFE566 !important;
+    transition: all .2s ease-in;
+}
+
 .footer {
     position: relative;
     padding: 5rem;
@@ -35,6 +40,19 @@ body {
     background: #00d2ff;
     background: -webkit-linear-gradient(to right, #3a7bd5, #00d2ff);
     background: linear-gradient(to right, #3a7bd5, #00d2ff);
+}
+
+.page-login {
+    color: white;
+    margin-top: -100px;
+    height: 30vh;
+    background: #00d2ff;
+    background: -webkit-linear-gradient(to right, #3a7bd5, #00d2ff);
+    background: linear-gradient(to right, #3a7bd5, #00d2ff);
+}
+
+.page-login h1 {
+    padding-top: 12%;
 }
 
 div .jumbotron {

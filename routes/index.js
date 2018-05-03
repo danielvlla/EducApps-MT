@@ -28,16 +28,17 @@ router.post("/register", function(req, res){
         username: req.body.email,
         email: req.body.email,
         name: {
-            firstName: req.body.firstname,
+            firstName: req.body.firstname.charAt(0).toUpperCase() + req.body.firstname.slice(1),
             lastName: req.body.lastname
-        }
+        },
+        role: req.body.role
     });
 
     User.register(newUser, req.body.password, function(err, user){
         if(err){
             console.log(err);
             req.flash("error", err.message);
-            return res.redirect("/register");
+            return res.redirect("/");
         }
         passport.authenticate("local")(req, res, function(){
             console.log("Registered to EducAppsMT " + user.username);
@@ -46,14 +47,19 @@ router.post("/register", function(req, res){
     });
 });
 
+router.get("/login", function(req, res){
+    res.render("login");
+});
+
 router.post("/login",
-    passport.authenticate("local", { failureRedirect: "/login" }),
+    passport.authenticate("local", { failureRedirect: "/" }),
     function(req, res) {
         res.redirect("/applications");
 });
 
 router.get("/logout", function(req, res){
     req.logout();
+    req.flash("error", "Logged you out!");
     res.redirect("/");
 });
 

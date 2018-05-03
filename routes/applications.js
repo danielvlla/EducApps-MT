@@ -3,6 +3,7 @@ var router      = express.Router();
 var Application = require("../models/application");
 var rp          = require('request-promise');
 var cheerio     = require('cheerio');
+var middleware  = require("../middleware");
 
 // ================================
 // APPLICATION ROUTES
@@ -19,8 +20,14 @@ router.get("/", function(req, res){
     });
 });
 
+// NEW ROUTE - Show form to create new application
+router.get("/new", middleware.isLoggedIn, function(req, res) {
+    Application.category
+    res.render("applications/new");
+});
+
 // CREATE ROUTE - Add New Application
-router.post("/", function(req, res) {
+router.post("/", middleware.isLoggedIn, function(req, res) {
 
     var url = req.body.appUrl;
 
@@ -42,6 +49,7 @@ router.post("/", function(req, res) {
 
             Application.create(newApplication, function(err, newlyCreated){
                 if (err) {
+                    res.redirect("/applications/new");
                     console.log(err);
                 } else {
                     res.redirect("/applications");
@@ -49,14 +57,9 @@ router.post("/", function(req, res) {
             });
         })
         .catch((err) => {
+            res.redirect("/applications/new");
             console.log(err);
         });
-});
-
-// NEW ROUTE - Show form to create new application
-router.get("/new", function(req, res) {
-    Application.category
-    res.render("applications/new");
 });
 
 // SHOW ROUTE - Show an Application
