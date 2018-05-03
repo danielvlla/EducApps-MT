@@ -117,4 +117,23 @@ $(function(){
             }
         }
     });
+
+    $(".review-new").validate({
+        rules: {
+            title: {
+                required: true,
+            },
+            description: {
+                required: true,
+            }
+        },
+        messages: {
+            title: {
+                required: "Review title is required"
+            },
+            description: {
+                required: "Review is required"
+            }
+        }
+    });
 });

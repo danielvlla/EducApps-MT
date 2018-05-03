@@ -16,10 +16,16 @@ router.post("", function(req, res){
             res.redirect("/applications");
         } else {
             // Create New Review
-            var title = req.body.title;
-            var description = req.body.description;
-
-            var newReview = {title: title, description: description};
+            var newReview = {
+                title: req.body.title,
+                description: req.body.description,
+                rating: {
+                    design: req.body.design,
+                    effectiveness: req.body.effectiveness,
+                    usability: req.body.usability,
+                    content: req.body.content
+                }
+            };
 
             Review.create(newReview, function(err, review){
                 if (err){

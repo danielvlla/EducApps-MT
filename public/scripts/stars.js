@@ -1,5 +1,5 @@
 $(function() {
-    $('#example').barrating({
-        theme: 'fontawesome-stars'
+    $(".starrating").barrating({
+        theme: "fontawesome-stars"
     });
 });

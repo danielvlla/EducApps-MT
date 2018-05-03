@@ -1,5 +1,5 @@
-<% include ../partials/header %>
-<% include ../partials/navbar %>
+<% include ../partials/_header %>
+<% include ../partials/_navbar %>
 
 <div class="page-header">
     <div class="container">
@@ -44,29 +44,68 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="/applications/<%= application._id %>/reviews" method="POST" id="add-review-form">
+                            <form action="/applications/<%= application._id %>/reviews" method="POST" id="add-review-form" class="review-new">
                                 <div class="form-group">
+                                    <label for="title">Title</label>
                                     <input type="text" class="form-control" name="title" placeholder="Name your Review" form="add-review-form" class="text-muted">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="example">Design</label>
-                                    <select id="example">
-                                        <label>Design Rating</label>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
+                                    <label for="title">Your Review</label>
                                     <textarea class="form-control" name="description" placeholder="Share your experience from using this application" type="text" form="add-review-form" class="text-muted"></textarea>
                                 </div>
 
-                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                <input type="submit" value="Submit" class="btn btn-outline-success">
+                                <div class="form-row text-center">
+                                    <div class="col-md-6 form-group">
+                                        <label for="rating">Design</label>
+                                        <select class="starrating" name="design">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="rating">Effectiveness</label>
+                                        <select class="starrating" name="effectiveness">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row text-center">
+                                    <div class="col-md-6 form-group">
+                                        <label for="rating">Usability</label>
+                                        <select class="starrating" name="usability">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="rating">Content</label>
+                                        <select class="starrating" name="content">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="form-group text-center">
+                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" value="Submit" class="btn btn-outline-success">
+                                </div>
                             </form>
                         </div>
 
@@ -96,7 +135,6 @@
         </div>
     </div>
 
-
 </div>
 
-<% include ../partials/footer %>
+<% include ../partials/_footer %>
