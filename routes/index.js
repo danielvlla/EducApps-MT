@@ -42,6 +42,7 @@ router.post("/register", function(req, res){
         }
         passport.authenticate("local")(req, res, function(){
             console.log("Registered to EducAppsMT " + user.username);
+            req.flash("success", "Successfully registered and logged in!");
             res.redirect("/applications");
         });
     });
@@ -54,12 +55,13 @@ router.get("/login", function(req, res){
 router.post("/login",
     passport.authenticate("local", { failureRedirect: "/" }),
     function(req, res) {
+        req.flash("success", "Logged you in!");
         res.redirect("/applications");
 });
 
 router.get("/logout", function(req, res){
     req.logout();
-    req.flash("error", "Logged you out!");
+    req.flash("success", "Logged you out!");
     res.redirect("/");
 });
 

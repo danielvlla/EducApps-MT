@@ -9,6 +9,17 @@
 
 <div class="mt-5 row justify-content-md-center">
     <div class="col-md-3">
+
+        <% if (error && error.length > 0) {%>
+            <div class="container">
+            <div class="alert alert-danger" role="alert"><%= error %></div>
+            </div>
+        <% } else if (success && success.length > 0) {%>
+        <div class="container">
+            <div class="alert alert-success" role="alert"><%= success %></div>
+        </div>
+        <% } %>
+
         <form action="/login" method="POST" class="login-form-new">
             <div class="form-group">
                 <label for="title">Username</label>

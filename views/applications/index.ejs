@@ -13,6 +13,17 @@
 
 <div class="container mt-5">
     <div class="row">
+
+            <% if (error && error.length > 0) {%>
+            <div class="container">
+                <div class="alert alert-danger" role="alert"><%= error %></div>
+            </div>
+            <% } else if (success && success.length > 0) {%>
+            <div class="container">
+                <div class="alert alert-success" role="alert"><%= success %></div>
+            </div>
+            <% } %>
+
             <% applications.forEach(function(application){ %>
             <div class="col-md-3 col-sm-6">
 

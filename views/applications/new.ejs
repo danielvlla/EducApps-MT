@@ -13,6 +13,17 @@
 <div class="container">
     <div class="py-2">
         <div class="row justify-content-md-center text-center">
+
+                <% if (error && error.length > 0) {%>
+                <div class="container">
+                    <div class="alert alert-danger" role="alert"><%= error %></div>
+                </div>
+                <% } else if (success && success.length > 0) {%>
+                <div class="container">
+                    <div class="alert alert-success" role="alert"><%= success %></div>
+                </div>
+                <% } %>
+
             <form action="/applications" method="post" class="app-new">
                 <div class="form-group py-2">
                     <label>App URL</label>

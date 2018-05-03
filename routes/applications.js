@@ -22,7 +22,6 @@ router.get("/", function(req, res){
 
 // NEW ROUTE - Show form to create new application
 router.get("/new", middleware.isLoggedIn, function(req, res) {
-    Application.category
     res.render("applications/new");
 });
 
@@ -49,16 +48,16 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 
             Application.create(newApplication, function(err, newlyCreated){
                 if (err) {
+                    req.flash("error", "Application not submitted. Did you paste in the correct URL?");
                     res.redirect("/applications/new");
-                    console.log(err);
                 } else {
                     res.redirect("/applications");
                 }
             });
         })
         .catch((err) => {
+            req.flash("error", "Did you paste in the correct URL?");
             res.redirect("/applications/new");
-            console.log(err);
         });
 });
 
@@ -67,7 +66,7 @@ router.get("/:id", function(req, res){
     Application.findById(req.params.id).populate("reviews").exec(function(err, foundApplication){
 
         if (err || !foundApplication) {
-            console.log(err);
+            req.flash("error", "App not found!");
             res.redirect("back");
         } else {
             res.render("applications/show", {application: foundApplication});

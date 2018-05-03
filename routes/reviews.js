@@ -9,11 +9,11 @@ var middleware  = require("../middleware");
 // ================================
 
 // Submit Review ie. Create Review
-router.post("", function(req, res){
+router.post("", middleware.isLoggedIn, function(req, res){
     // Look up application
     Application.findById(req.params.id, function(err, application){
         if (err) {
-            console.log(err);
+            req.flash("error", "App not found");
             res.redirect("/applications");
         } else {
 
@@ -41,7 +41,7 @@ router.post("", function(req, res){
 
             Review.create(newReview, function(err, review){
                 if (err){
-                    console.log(err);
+                    req.flash("error", "Review could not be submitted");
                 } else {
                     review.save();
                     application.reviews.push(review._id);
