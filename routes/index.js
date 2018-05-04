@@ -3,6 +3,7 @@ var router      = express.Router();
 var passport    = require("passport");
 var User        = require("../models/user");
 var middleware  = require("../middleware");
+var validator   = require("validator");
 
 // ================================
 // GENERIC ROUTES
@@ -24,6 +25,15 @@ router.get("/profile", middleware.isLoggedIn, function(req, res){
 
 router.post("/register", function(req, res){
 
+    validator.isEmail(req.body.email);
+    validator.isEmpty(req.body.email);
+    validator.isEmpty(req.body.firstname);
+    validator.isEmpty(req.body.lastname);
+    validator.isEmpty(req.body.password);
+    validator.trim(req.body.email);
+    validator.trim(req.body.firstname);
+    validator.trim(req.body.lastname);
+
     var newUser = new User({
         username: req.body.email,
         email: req.body.email,
@@ -36,12 +46,10 @@ router.post("/register", function(req, res){
 
     User.register(newUser, req.body.password, function(err, user){
         if(err){
-            console.log(err);
             req.flash("error", err.message);
             return res.redirect("/");
         }
         passport.authenticate("local")(req, res, function(){
-            console.log("Registered to EducAppsMT " + user.username);
             req.flash("success", "Successfully registered and logged in!");
             res.redirect("/applications");
         });
@@ -53,7 +61,7 @@ router.get("/login", function(req, res){
 });
 
 router.post("/login",
-    passport.authenticate("local", { failureRedirect: "/", failureFlash: true }),
+    passport.authenticate("local", { successredirect: "/applications", failureRedirect: "/login", failureFlash: true }),
     function(req, res) {
         req.flash("success", "Logged you in!");
         res.redirect("/applications");

@@ -42,3 +42,11 @@ body {
 #header-lead {
     font-size: 1rem;
 }
+
+div #error {
+    display: none;
+}
+
+div #success {
+    display: none;
+}

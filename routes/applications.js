@@ -4,6 +4,7 @@ var Application = require("../models/application");
 var rp          = require('request-promise');
 var cheerio     = require('cheerio');
 var middleware  = require("../middleware");
+var validator   = require("validator");
 
 // ================================
 // APPLICATION ROUTES
@@ -28,12 +29,19 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
 // CREATE ROUTE - Add New Application
 router.post("/", middleware.isLoggedIn, function(req, res) {
 
+    validator.isEmpty(req.body.appUrl);
+
     var url = req.body.appUrl;
 
     const options = {
         uri: url,
         transform: function (body) {
-            return cheerio.load(body);
+            try {
+                return cheerio.load(body)
+            } catch (e) {
+                req.flash("error", "Application Data not loaded. Did you paste in the correct URL?");
+                res.redirect("/applications/new");
+            }
         }
     };
 
@@ -43,15 +51,42 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
             var appDescription = $('.DWPxHb').find('content').find('div').text();
             var appImageUrl = $('.dQrBL').find('img').attr('src').toString();
             var playStoreRating = $('.BHMmbe').text();
+            var author = {
+                id: req.user._id,
+                username: req.user.email
+            };
+            var category = req.body.category;
 
-            var newApplication = {url: url, name: appTitle, description: appDescription, thumbnail: appImageUrl, playStore: playStoreRating};
+            validator.isEmpty(url);
+            validator.isEmpty(appTitle);
+            validator.isEmpty(appDescription);
+            validator.isEmpty(appImageUrl);
+            validator.isEmpty(playStoreRating);
 
-            Application.create(newApplication, function(err, newlyCreated){
-                if (err) {
-                    req.flash("error", "Application not submitted. Did you paste in the correct URL?");
-                    res.redirect("/applications/new");
+            Application.findOne({name: appTitle}, function(err, existingApp){
+                if (existingApp == null){
+                    var newApplication = {
+                        url: url,
+                        name: appTitle,
+                        description: appDescription,
+                        thumbnail: appImageUrl,
+                        playStore: playStoreRating,
+                        author: author,
+                        category: category
+                    };
+
+                    Application.create(newApplication, function(err, newlyCreated){
+                        if (err) {
+                            req.flash("error", "Application not submitted. Did you paste in the correct URL?");
+                            res.redirect("/applications/new");
+                        } else {
+                            req.flash("success", "Successfully submitted Educational App");
+                            res.redirect("/applications");
+                        }
+                    });
                 } else {
-                    res.redirect("/applications");
+                    req.flash("error", "App already exists, here you go!");
+                    res.redirect("/applications/" + existingApp._id);
                 }
             });
         })

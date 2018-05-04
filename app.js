@@ -8,6 +8,7 @@ var express         = require("express"),
     cookieParser    = require("cookie-parser"),
     LocalStrategy   = require("passport-local").Strategy,
     methodOverride  = require("method-override");
+
 // MODELS
 var Application     = require("./models/application"),
     Review          = require("./models/review"),

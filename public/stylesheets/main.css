@@ -72,3 +72,11 @@ div .jumbotron {
 .box-shadow {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+div #error {
+    display: none;
+}
+
+div #success {
+    display: none;
+}

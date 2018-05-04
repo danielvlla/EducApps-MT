@@ -13,9 +13,12 @@ router.post("", middleware.isLoggedIn, function(req, res){
     // Look up application
     Application.findById(req.params.id, function(err, application){
         if (err) {
-            req.flash("error", "App not found");
+            req.flash("error", "Application not found");
             res.redirect("/applications");
         } else {
+
+            validator.isEmpty(req.body.title);
+            validator.isEmpty(req.body.description);
 
             var rating = [req.body.design, req.body.effectiveness, req.body.usability, req.body.content];
 

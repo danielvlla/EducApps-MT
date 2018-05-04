@@ -13,7 +13,7 @@ $(function(){
                     .removeClass("is-invalid");
         },
         errorPlacement: function(error, element){
-            if(element.prop("type") === "checkbox") {
+            if(element.prop("type") === "radio") {
                 error.insertAfter(element.parent());
             } else {
                 error.insertAfter(element);

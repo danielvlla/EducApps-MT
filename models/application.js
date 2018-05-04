@@ -14,7 +14,7 @@ var ApplicationSchema = new mongoose.Schema({
     thumbnail: String,
     category: [{
         type: String,
-        enum: ["general", "maths", "english", "maltese", "religion"]
+        enum: ["General", "Maths", "English", "Maltese", "Religion", "Social Studies"]
     }],
     rating: {
         playStore: Number,
