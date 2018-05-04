@@ -10,3 +10,10 @@ if ($("#success").length){
     });
 }
 
+$(function(){
+    $(".public-rating").barrating("set", 4);
+});
+
+$(".pills-general-tab").click(function() {
+    $(".tab-content").load("./partials/_generalApps.ejs");
+});
