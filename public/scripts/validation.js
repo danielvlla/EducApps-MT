@@ -28,16 +28,20 @@ $(function(){
             && /[a-z]/i.test(value);
     }, "Use at least 6 characters. Include both a digit and a character");
 
+    $.validator.addMethod("spacesInName", function(value, element) {
+        return this.optional(element) || value == value.match(/^[a-zA-Z\s]+$/);
+    });
+
     $(".register-form").validate({
         rules: {
             firstname: {
                 required: true,
-                lettersonly: true,
+                spacesInName: true,
                 minlength: 2
             },
             lastname: {
                 required: true,
-                lettersonly: true,
+                spacesInName: true,
                 minlength: 2
             },
             email: {
@@ -58,12 +62,12 @@ $(function(){
         messages: {
             firstname: {
                 required: "First name is required",
-                lettersonly: "Only include characters",
+                spacesInName: "Only include characters",
                 minlength: "Your name must be longer than 2 letters"
             },
             lastname: {
                 required: "Surname is required",
-                lettersonly: "Only include characters",
+                spacesInName: "Only include characters",
                 minlength: "Your surname must be longer than 2 letters"
             },
             email: {
@@ -95,6 +99,9 @@ $(function(){
             email: {
                 required: "E-mail address is required to login",
                 email: "Please enter a <strong>valid</strong> e-mail address."
+            },
+            password: {
+                required: "Password required to login"
             }
         }
     });
@@ -113,6 +120,9 @@ $(function(){
             email: {
                 required: "E-mail address is required to login",
                 email: "Please enter a <strong>valid</strong> e-mail address."
+            },
+            password: {
+                required: "Password required to login"
             }
         }
     });

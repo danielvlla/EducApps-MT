@@ -39,7 +39,7 @@ router.post("/register", function(req, res){
         email: req.body.email,
         name: {
             firstName: req.body.firstname.charAt(0).toUpperCase() + req.body.firstname.slice(1),
-            lastName: req.body.lastname
+            lastName: req.body.lastname.charAt(0).toUpperCase() + req.body.lastname.slice(1)
         },
         role: req.body.role
     });

@@ -32,8 +32,8 @@ router.post("", middleware.isLoggedIn, function(req, res){
 
             // Create New Review
             var newReview = {
-                title: req.body.title,
-                description: req.body.description,
+                title: req.body.title.charAt(0).toUpperCase() + req.body.title.slice(1),
+                description: req.body.description.charAt(0).toUpperCase() + req.body.description.slice(1),
                 rating: {
                     design: req.body.design,
                     effectiveness: req.body.effectiveness,
@@ -42,7 +42,8 @@ router.post("", middleware.isLoggedIn, function(req, res){
                     total: avg
                 },
                 author: {
-                    id: req.user._id
+                    id: req.user._id,
+                    name: req.user.name.firstName + " " + req.user.name.lastName
                 }
             };
 

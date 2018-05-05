@@ -97,9 +97,15 @@
     <!-- REVIEW SECTION START -->
     <div class="row justify-content-md-center">
         <div class="col-md-9 text-center">
-            <button type="button" class="write-review-btn btn btn-outline-primary" data-toggle="modal" data-target="#ModalCenter">
-                Write your Review
-            </button>
+            <% if (currentUser) { %>
+                <button type="button" class="write-review-btn btn btn-outline-primary" data-toggle="modal" data-target="#ModalCenter">
+                    Write your Review
+                </button>
+            <% } else { %>
+                <button type="button" class="write-review-btn btn btn-outline-warning" data-toggle="modal" data-target="#ModalLogin">
+                    Login to leave Reviews
+                </button>
+            <% } %>
         </div>
     </div>
 
@@ -115,13 +121,13 @@
                         <h3>
                             <a class="text-dark"><%= review.title %></a>
                         </h3>
-                        <p><%= review.author.id %></p>
+                        <p>Submitted by <span class="review-author"><%= review.author.name %></span></p>
                         <p class="submitted"><%= moment(review.created).fromNow() %></p>
                         <p class="card-text mb-auto text-muted">
                             <%= review.description %>
                         </p>
                     </div>
-                    <div class="col-md-4">
+                    <div class="stars-review col-md-4">
                         <div class="row text-center">
                             <div class="col-md-6">
                                 <label for="rating">Design</label>
@@ -167,6 +173,11 @@
                             </div>
                         </div>
                     </div>
+                    <% if(currentUser && review.author.id.equals(currentUser._id)){ %>
+                        <form class="delete-form" action="/applications/<%= application._id %>/reviews//<%= review._id %>?_method=DELETE" method="post">
+                            <button class="review-delete btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    <% } %>
                 </div>
             </div>
         <% }); %>

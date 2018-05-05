@@ -24,7 +24,8 @@ var ReviewSchema = new mongoose.Schema({
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
-        }
+        },
+        name: String
     },
     created: {
         type: Date,

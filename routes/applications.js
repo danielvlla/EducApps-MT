@@ -159,8 +159,8 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
 // SHOW ROUTE - Show an Application
 router.get("/:id", function(req, res){
     Application.findById(req.params.id).populate("reviews").exec(function(err, foundApplication){
-
         if (err || !foundApplication) {
+            console.log(err);
             req.flash("error", "App not found!");
             res.redirect("back");
         } else {
