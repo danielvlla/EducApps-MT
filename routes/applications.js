@@ -26,6 +26,68 @@ router.get("/new", middleware.isLoggedIn, function(req, res) {
     res.render("applications/new");
 });
 
+router.get("/general", function(req, res){
+    Application.find({ "category": "General" } , function(err, allApplications){
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("applications/index", {applications: allApplications});
+        }
+    });
+});
+
+router.get("/maths", function(req, res){
+    Application.find({ "category": "Maths" } , function(err, allApplications){
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("applications/index", {applications: allApplications});
+        }
+    });
+});
+
+router.get("/religion", function(req, res){
+    Application.find({ "category": "Religion" } , function(err, allApplications){
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("applications/index", {applications: allApplications});
+        }
+    });
+});
+
+router.get("/socialstudies", function(req, res){
+    Application.find({ "category": "Social Studies" } , function(err, allApplications){
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("applications/index", {applications: allApplications});
+        }
+    });
+});
+
+router.get("/english", function(req, res){
+    Application.find({ "category": "English" } , function(err, allApplications){
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("applications/index", {applications: allApplications});
+        }
+    });
+});
+
+router.get("/maltese", function(req, res){
+    Application.find({ "category": "Maltese" } , function(err, allApplications){
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("applications/index", {applications: allApplications});
+        }
+    });
+});
+
+
+
 // CREATE ROUTE - Add New Application
 router.post("/", middleware.isLoggedIn, function(req, res) {
 
