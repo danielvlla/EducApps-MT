@@ -71,7 +71,7 @@ router.get("/english", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.render("applications/index", {applications: allApplications});
+            res.send({applications: allApplications});
         }
     });
 });
