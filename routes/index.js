@@ -41,7 +41,8 @@ router.post("/register", function(req, res){
             firstName: req.body.firstname.charAt(0).toUpperCase() + req.body.firstname.slice(1),
             lastName: req.body.lastname.charAt(0).toUpperCase() + req.body.lastname.slice(1)
         },
-        role: req.body.role
+        role: req.body.role,
+        school: req.body.school
     });
 
     User.register(newUser, req.body.password, function(err, user){
