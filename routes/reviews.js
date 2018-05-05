@@ -3,6 +3,7 @@ var router      = express.Router({mergeParams: true});
 var Application = require("../models/application");
 var Review      = require("../models/review");
 var middleware  = require("../middleware");
+var validator   = require("validator");
 
 // ================================
 // REVIEW ROUTES
@@ -39,6 +40,9 @@ router.post("", middleware.isLoggedIn, function(req, res){
                     usability: req.body.usability,
                     content: req.body.content,
                     total: avg
+                },
+                author: {
+                    id: req.user._id
                 }
             };
 

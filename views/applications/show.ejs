@@ -64,14 +64,14 @@
 <!-- Application Container -->
 <div class="container mt-5">
     <div class="row justify-content-md-center">
-        <div class="col-md-9 box-shadow border">
+        <div class="col-md-9 box-shadow border app-show">
             <div class="row">
                 <div class="col-md-8">
-                    <strong class="mb-2 text-success">Category</strong>
+                    <strong class="mb-2 text-muted ">Category // <%= application.category %></strong>
                     <h3>
                         <a class="text-dark"><%= application.name %></a>
                     </h3>
-                    <div class="text-muted"><a target="_blank" href="<%= application.url %>">Download</a></div>
+                    <a href="<%= application.url %>" target="_blank" class="btn btn-primary" role="button">Get App</a>
                     <p class="card-text mb-auto text-muted">
                         <%= application.description.substr(0, 500) %> <a href="<%= application.url %>">... Read more</a>
                     </p>
@@ -82,121 +82,180 @@
                 </div>
             </div>
 
-            <form class="delete-form" action="/applications/<%= application._id %>?_method=DELETE" method="post">
-                <a class="btn btn-sm btn-outline-warning" href="/applications/<%= application._id %>/edit">Edit</a>
-                <button class="btn btn-sm btn-outline-danger">Delete</button>
-            </form>
-            <br>
+            <% if(!currentUser){ %>
+
+            <% } else if (currentUser.isAdmin) { %>
+                <form class="delete-form" action="/applications/<%= application._id %>?_method=DELETE" method="post">
+                    <a class="btn btn-sm btn-outline-warning" href="/applications/<%= application._id %>/edit">Edit</a>
+                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+                <br>
+            <% } %>
         </div>
     </div>
 
     <!-- REVIEW SECTION START -->
     <div class="row justify-content-md-center">
-        <div class="col-md-9">
-            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalCenter">
+        <div class="col-md-9 text-center">
+            <button type="button" class="write-review-btn btn btn-outline-primary" data-toggle="modal" data-target="#ModalCenter">
                 Write your Review
             </button>
+        </div>
+    </div>
 
-            <div class="modal fade" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="ModalLongTitle">Write your Review!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+    <div class="col-md-12 mt-5">
+        <div class="row justify-content-center">
+        <% if (application.reviews.length === 0) { %>
+            <h6 class="text-muted">No Reviews Yet</h6>
+        <% } %>
+        <% application.reviews.forEach(function(review) { %>
+            <div class="col-md-8 box-shadow border review-show">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h3>
+                            <a class="text-dark"><%= review.title %></a>
+                        </h3>
+                        <p><%= review.author.id %></p>
+                        <p class="submitted"><%= moment(review.created).fromNow() %></p>
+                        <p class="card-text mb-auto text-muted">
+                            <%= review.description %>
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                                <label for="rating">Design</label>
+                                <select class="star-rating-ro" name="design">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="rating">Effectiveness</label>
+                                <select class="star-rating-ro" name="effectiveness">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form action="/applications/<%= application._id %>/reviews" method="POST" id="add-review-form" class="review-new">
-                                <div class="form-group">
-                                    <label for="title">Title</label>
-                                    <input type="text" class="form-control" name="title" placeholder="Name your Review" form="add-review-form" class="text-muted">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="title">Your Review</label>
-                                    <textarea class="form-control" name="description" placeholder="Share your experience from using this application" type="text" form="add-review-form" class="text-muted"></textarea>
-                                </div>
-
-                                <div class="form-row text-center">
-                                    <div class="col-md-6 form-group">
-                                        <label for="rating">Design</label>
-                                        <select class="starrating" name="design">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label for="rating">Effectiveness</label>
-                                        <select class="starrating" name="effectiveness">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-row text-center">
-                                    <div class="col-md-6 form-group">
-                                        <label for="rating">Usability</label>
-                                        <select class="starrating" name="usability">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label for="rating">Content</label>
-                                        <select class="starrating" name="content">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <hr>
-                                <div class="form-group text-center">
-                                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                                    <input type="submit" value="Submit" class="btn btn-outline-success">
-                                </div>
-                            </form>
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                                <label for="rating">Usability</label>
+                                <select class="star-rating-ro" name="usability">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="rating">Content</label>
+                                <select class="star-rating-ro" name="content">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
+        <% }); %>
         </div>
     </div>
+</div>
 
-    <div class="row justify-content-md-center">
-        <div class="col-md-9">
-
-            <% if (application.reviews.length === 0) { %>
-                <p class="text-muted">No Comments Yet</p>
-            <% } %>
-
-            <% application.reviews.forEach(function(review) { %>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= review.title %></h5>
-                        <h6 class="card-subtitle mb-2 text-muted"><%= moment(review.created).fromNow() %></h6>
-                        <p class="card-text"><%= review.description %></p>
+<div class="modal fade reviewModal" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Write your Review!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/applications/<%= application._id %>/reviews" method="POST" id="add-review-form" class="review-new">
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" name="title" placeholder="Name your Review" form="add-review-form" class="text-muted">
                     </div>
-                </div>
-            <% }); %>
+
+                    <div class="form-group">
+                        <label for="title">Your Review</label>
+                        <textarea class="form-control" name="description" placeholder="Share your experience from using this application" type="text" form="add-review-form" class="text-muted"></textarea>
+                    </div>
+
+                    <div class="form-row text-center">
+                        <div class="col-md-6 form-group">
+                            <label for="rating">Design</label>
+                            <select class="starrating" name="design">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="rating">Effectiveness</label>
+                            <select class="starrating" name="effectiveness">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row text-center">
+                        <div class="col-md-6 form-group">
+                            <label for="rating">Usability</label>
+                            <select class="starrating" name="usability">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="rating">Content</label>
+                            <select class="starrating" name="content">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="hidden" name="anon[0]" value="0" />
+                        <input type="checkbox" name="anon[0]" value="1" class="form-check-input"/>
+                        <label class="form-check-label" for="anonymous">Remain Anonymous</label>
+                    </div>
+
+                    <hr>
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Submit" class="btn btn-outline-success">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-
 </div>
 
 <% include ../partials/_footer %>

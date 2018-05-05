@@ -21,21 +21,6 @@ router.get("/", function(req, res){
     });
 });
 
-// NEW ROUTE - Show form to create new application
-router.get("/new", middleware.isLoggedIn, function(req, res) {
-    res.render("applications/new");
-});
-
-router.get("/general", function(req, res){
-    Application.find({ "category": "General" } , function(err, allApplications){
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("applications/index", {applications: allApplications});
-        }
-    });
-});
-
 router.get("/maths", function(req, res){
     Application.find({ "category": "Maths" } , function(err, allApplications){
         if (err) {
@@ -71,7 +56,7 @@ router.get("/english", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.send({applications: allApplications});
+            res.render("applications/index", {applications: allApplications});
         }
     });
 });
@@ -86,7 +71,20 @@ router.get("/maltese", function(req, res){
     });
 });
 
+router.get("/general", function(req, res){
+    Application.find({ "category": "General" } , function(err, allApplications){
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("applications/index", {applications: allApplications});
+        }
+    });
+});
 
+// NEW ROUTE - Show form to create new application
+router.get("/new", middleware.isLoggedIn, function(req, res) {
+    res.render("applications/new");
+});
 
 // CREATE ROUTE - Add New Application
 router.post("/", middleware.isLoggedIn, function(req, res) {
@@ -172,14 +170,14 @@ router.get("/:id", function(req, res){
 });
 
 // EDIT ROUTE
-router.get("/:id/edit", function(req, res){
+router.get("/:id/edit", middleware.checkIfAdmin, function(req, res){
     Application.findById(req.params.id, function(err, foundApplication){
         res.render("applications/edit", {application: foundApplication});
     });
 });
 
 // UPDATE ROUTE
-router.put("/:id", function(req, res){
+router.put("/:id", middleware.checkIfAdmin, function(req, res){
     Application.findByIdAndUpdate(req.params.id, req.body.application, function(err, updatedApplication){
         if(err){
             res.redirect("/applications");
@@ -190,7 +188,7 @@ router.put("/:id", function(req, res){
 });
 
 // DESTROY ROUTE
-router.delete("/:id", function(req, res){
+router.delete("/:id", middleware.checkIfAdmin, function(req, res){
     Application.findByIdAndRemove(req.params.id, function(err){
         if(err){
             res.redirect("/applications");

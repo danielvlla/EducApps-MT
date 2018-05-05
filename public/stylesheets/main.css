@@ -128,3 +128,54 @@ div #success {
     border-radius: 50%;
     width: 8rem;
 }
+
+.no-apps {
+    display: none;
+}
+
+#filterApps {
+    border-radius: 20px;
+}
+
+.app-show {
+    padding: 3rem;
+    background-color: #fff;
+}
+
+.app-show h3 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.app-show p {
+    font-size: 0.9rem;
+    padding-top: 2rem;
+}
+
+.app-show a {
+    text-decoration: none;
+}
+
+.delete-form {
+    padding-top: 2rem;
+}
+
+.delete-form a {
+    margin-right: 1rem;
+}
+
+.review-show {
+    padding: 2rem;
+    background-color: #fff;
+    margin-top: 1rem;
+}
+
+.review-show .submitted {
+    font-size: 0.8rem;
+}
+
+.write-review-btn {
+    border-radius: 20px;
+    margin-top: 3rem;
+    width: 15rem;
+}

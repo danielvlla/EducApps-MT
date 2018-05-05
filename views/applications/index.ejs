@@ -38,13 +38,17 @@
                     <a class="nav-link" href="/applications/english">English</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/applications/english">Maltese</a>
+                    <a class="nav-link" href="/applications/maltese">Maltese</a>
                 </li>
             </ul>
+            <form class="form-inline mt-4 justify-content-center">
+                <input class="form-control" type="search" id="filterApps" placeholder="Search">
+            </form>
 
             <hr>
 
             <div class="mt-5 row justify-content-center" id="apps">
+                <h4 class="no-apps" id="no-apps">No apps match your search</h4>
                 <% if (applications.length === 0) { %>
                     <h4>No apps in this category yet</h4>
                 <% } %>
