@@ -17,100 +17,64 @@
         <% include ../partials/_alerts %>
 
         <div class="col-lg-12 text-muted">
+            <hr>
             <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All</a>
+                    <a class="nav-link active" id="pills-all-tab" onclick="filterApps(this)" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-general-tab" data-toggle="pill" href="#pills-general" role="tab" aria-controls="pills-general" aria-selected="false">General</a>
+                    <a class="nav-link" id="pills-general-tab" onclick="filterApps(this)" data-toggle="pill" href="#pills-general" role="tab" aria-controls="pills-general" aria-selected="false">General</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-maths-tab" data-toggle="pill" href="#pills-maths" role="tab" aria-controls="pills-maths" aria-selected="false">Maths</a>
+                    <a class="nav-link" id="pills-maths-tab" onclick="filterApps(this)" data-toggle="pill" href="#pills-maths" role="tab" aria-controls="pills-maths" aria-selected="false">Maths</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-english-tab" data-toggle="pill" href="#pills-english" role="tab" aria-controls="pills-english" aria-selected="false">English</a>
+                    <a class="nav-link" id="pills-english-tab" onclick="filterApps(this)" data-toggle="pill" href="#pills-english" role="tab" aria-controls="pills-english" aria-selected="false">English</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-maltese-tab" data-toggle="pill" href="#pills-maltese" role="tab" aria-controls="pills-maltese" aria-selected="false">Maltese</a>
+                    <a class="nav-link" id="pills-maltese-tab" onclick="filterApps(this)" data-toggle="pill" href="#pills-maltese" role="tab" aria-controls="pills-maltese" aria-selected="false">Maltese</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-religion-tab" data-toggle="pill" href="#pills-religion" role="tab" aria-controls="pills-religion" aria-selected="false">Religion</a>
+                    <a class="nav-link" id="pills-religion-tab" onclick="filterApps(this)" data-toggle="pill" href="#pills-religion" role="tab" aria-controls="pills-religion" aria-selected="false">Religion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pills-socialstudies-tab" data-toggle="pill" href="#pills-socialstudies" role="tab" aria-controls="pills-socialstudies" aria-selected="false">Social Studies</a>
+                    <a class="nav-link" id="pills-socialstudies-tab" onclick="filterApps(this)" data-toggle="pill" href="#pills-socialstudies" role="tab" aria-controls="pills-socialstudies" aria-selected="false">Social Studies</a>
                 </li>
             </ul>
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
-                    <% applications.forEach(function(application){ %>
-                        <div class="box-shadow text-center app-container">
-                            <img src="<%= application.thumbnail %>" alt="Card image cap" class="app-image">
-                            <p class="container-title"><%= application.name %></p>
-                            <p class="text-muted container-category"><%= application.category %></p>
-                            <a href="/applications/<%= application._id %>" class="more-info"> More Info</a>
-                            <div class="row">
-                                <div class="col-md-6 index-rating">
-                                    <label for="rating">Public</label>
-                                    <select class="star-rating-ro public-rating" name="design">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 index-rating">
-                                    <label for="rating">EducApps</label>
-                                    <select class="star-rating-ro public-rating" name="design">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    <% }) %>
-                </div>
+            <hr>
 
-                <div class="tab-pane tab-pane-jquery fade" id="pills-general" role="tabpanel" aria-labelledby="pills-general-tab">
+                <div class="mt-5 row justify-content-center" id="apps">
                     <% applications.forEach(function(application){ %>
-                    <% if (application.category == "General"){%>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="p-3 box-shadow text-center app-container">
-                            <img src="<%= application.thumbnail %>" alt="Card image cap" class="app-image">
-                            <p class="container-title"><%= application.name %></p>
-                            <p class="text-muted container-category"><%= application.category %></p>
-                            <a href="/applications/<%= application._id %>" class="more-info"> More Info</a>
-                            <div class="row">
-                                <div class="col-md-6 index-rating">
-                                    <label for="rating">Public</label>
-                                    <select class="star-rating-ro public-rating" name="design">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 index-rating">
-                                    <label for="rating">EducApps</label>
-                                    <select class="star-rating-ro public-rating" name="design">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
-                                </div>
+                    <div class="box-shadow text-center app-container">
+                        <img src="<%= application.thumbnail %>" alt="Card image cap" class="app-image">
+                        <p class="container-title"><%= application.name %></p>
+                        <p class="text-muted container-category"><%= application.category %></p>
+                        <a href="/applications/<%= application._id %>" class="more-info"> More Info</a>
+                        <div class="row">
+                            <div class="col-md-6 index-rating">
+                                <label for="rating">Public</label>
+                                <select class="star-rating-ro public-rating" name="design">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 index-rating">
+                                <label for="rating">EducApps</label>
+                                <select class="star-rating-ro public-rating" name="design">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <%}%>
                     <% }) %>
                 </div>
-            </div>
         </div>
     </div>
 </div>

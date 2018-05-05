@@ -94,7 +94,7 @@ div #success {
     border-radius: 5%;
     display: inline-block;
     padding: 2rem;
-    float:none;
+    float: none;
 }
 
 .app-container:hover {
