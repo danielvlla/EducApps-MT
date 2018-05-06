@@ -37,3 +37,10 @@ function filterNames(){
         }
     }
 }
+
+function checkAnon(){
+    var checkbox = document.getElementById("anoncheck");
+    if (checkbox.checked != true){
+        checkbox.value = "false";
+    }
+}
