@@ -57,25 +57,14 @@ router.post("", middleware.isLoggedIn, function(req, res){
                     var usersRating = application.rating.users;
 
                     if (application.reviews.length == 0) {
-                        console.log("empty");
                         application.rating.users = review.rating.total;
                     } else {
-                        console.log("================================= not empty");
-                        console.log("Users Rating" + usersRating);
-                        console.log("Num of Reviews" + numOfReviews);
-                        console.log("Users Rating*Num of Reviews" + (usersRating*numOfReviews));
-                        // averageRatingUsers = (((usersRating*numOfReviews) + review.rating.total)/(numOfReviews+1));
-                        averageRatingUsers = ((usersRating*numOfReviews) + review.rating.total)/(numOfReviews+1);
-                        console.log("Before Round Users " + averageRatingUsers);
-                        application.rating.users = Math.round(averageRatingUsers);
-                        console.log("After Round // Rating Users " + application.rating.users);
+                        application.rating.users = usersRating + ((review.rating.total - usersRating) / (numOfReviews+1));
                     }
 
                     review.save();
                     application.reviews.push(review._id);
                     application.save();
-                    console.log("No of Reviews: " + application.reviews.length);
-                    console.log("=================================");
                     res.redirect("/applications/" + application._id);
                 }
             });

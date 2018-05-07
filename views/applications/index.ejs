@@ -71,7 +71,7 @@
                         </div>
                         <div class="col-md-6 index-rating">
                             <label for="rating">EducApps</label>
-                            <select class="star-rating-ro public-rating" data-current-rating="<%= application.rating.users %>" name="educapps">
+                            <select class="star-rating-ro public-rating" data-current-rating="<%= Math.round(application.rating.users) %>" name="educapps">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
