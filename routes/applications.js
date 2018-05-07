@@ -134,7 +134,8 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
                         description: appDescription,
                         thumbnail: appImageUrl,
                         rating: {
-                            playStore: playRating
+                            playStore: playRating,
+                            users: 0
                         },
                         author: author,
                         category: category

@@ -8,7 +8,8 @@ $(function() {
         $El.barrating({
             theme: "fontawesome-stars",
             readonly: true,
-            initialRating: $(this).attr("data-current-rating")
+            initialRating: $(this).attr("data-current-rating"),
+            allowEmpty: true
         });
     });
 });
