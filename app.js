@@ -12,12 +12,16 @@ var express         = require("express"),
 // MODELS
 var Application     = require("./models/application"),
     Review          = require("./models/review"),
+    Suggestion      = require("./models/suggestion"),
+    Comment         = require("./models/comment"),
     User            = require("./models/user");
 
 // ROUTES
 var indexRoutes         = require("./routes/index"),
     applicationRoutes   = require("./routes/applications"),
-    reviewRoutes        = require("./routes/reviews");
+    reviewRoutes        = require("./routes/reviews"),
+    suggestionRoutes    = require("./routes/suggestions"),
+    commentRoutes       = require("./routes/comments");
 
 mongoose.connect("mongodb://daniel:danielpassword@ds261138.mlab.com:61138/educappsmt");
 
@@ -55,7 +59,9 @@ app.use(function(req, res, next){
 
 app.use("/", indexRoutes);
 app.use("/applications", applicationRoutes);
-app.use("/applications/:id/reviews/", reviewRoutes);
+app.use("/applications/:id/reviews/", reviewRoutes),
+app.use("/suggestions", suggestionRoutes),
+app.use("/suggestions/:id/comments/", commentRoutes);
 
 app.listen(process.env.PORT || 3000, function(){
     console.log("EducAppsMT is running on port 3000");

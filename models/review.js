@@ -2,9 +2,11 @@ var mongoose = require("mongoose");
 
 // Review Schema
 var ReviewSchema = new mongoose.Schema({
-    author: {
+    title: {
+        type: String
+    },
+    description: {
         type: String,
-        // required: true
     },
     rating: {
         design: Number,
@@ -12,12 +14,6 @@ var ReviewSchema = new mongoose.Schema({
         usability: Number,
         content: Number,
         total: Number
-    },
-    title: {
-        type: String
-    },
-    description: {
-        type: String,
     },
     author: {
         id: {

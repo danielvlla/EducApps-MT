@@ -16,7 +16,7 @@ router.get("/", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.render("applications/index", {applications: allApplications});
+            res.render("applications/index.ejs", {applications: allApplications});
         }
     });
 });
@@ -26,7 +26,7 @@ router.get("/maths", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.render("applications/index", {applications: allApplications});
+            res.render("applications/index.ejs", {applications: allApplications});
         }
     });
 });
@@ -36,7 +36,7 @@ router.get("/religion", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.render("applications/index", {applications: allApplications});
+            res.render("applications/index.ejs", {applications: allApplications});
         }
     });
 });
@@ -46,7 +46,7 @@ router.get("/socialstudies", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.render("applications/index", {applications: allApplications});
+            res.render("applications/index.ejs", {applications: allApplications});
         }
     });
 });
@@ -56,7 +56,7 @@ router.get("/english", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.render("applications/index", {applications: allApplications});
+            res.render("applications/index.ejs", {applications: allApplications});
         }
     });
 });
@@ -66,7 +66,7 @@ router.get("/maltese", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.render("applications/index", {applications: allApplications});
+            res.render("applications/index.ejs", {applications: allApplications});
         }
     });
 });
@@ -76,7 +76,7 @@ router.get("/general", function(req, res){
         if (err) {
             console.log(err);
         } else {
-            res.render("applications/index", {applications: allApplications});
+            res.render("applications/index.ejs", {applications: allApplications});
         }
     });
 });

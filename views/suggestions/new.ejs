@@ -1,0 +1,51 @@
+<% include ../partials/_header %>
+<% include ../partials/_navbar %>
+
+<div class="page-header">
+    <div class="container">
+        <div class="jumbotron text-center bg-transparent">
+            <h1 class="jumbotron-heading">Submit a New Suggestion</h1>
+            <p class="lead">Suggest ideas to developers.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="py-2">
+        <div class="row justify-content-md-center text-center">
+
+            <% include ../partials/_alerts %>
+
+            <form action="/suggestions" method="post" class="col-md-6 app-new">
+                <div class="mt-5 form-group py-2">
+                    <label>Name your idea</label>
+                    <input type="text" name="suggestionTitle" class="form-control text-muted" placeholder="eg. An App for Multiplication">
+                </div>
+
+                <div class="form-group py-2">
+                    <label>Category</label>
+                    <select class="form-control" name="category">
+                        <option value="General">General</option>
+                        <option value="Maths">Maths</option>
+                        <option value="English">English</option>
+                        <option value="Maltese">Maltese</option>
+                        <option value="Religion">Religion</option>
+                        <option value="Social Studies">Social Studies</option>
+                    </select>
+                </div>
+
+                <div class="mt-5 form-group py-2">
+                    <label>Explain your idea</label>
+                    <textarea class="form-control" name="suggestionDescription" placeholder="This app should do this.." type="text" class="text-muted"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit Suggestion!</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="py-5 text-center">
+        <a href="/suggestions">Go Back</a>
+    </div>
+</div>
+<% include ../partials/_footer %>
