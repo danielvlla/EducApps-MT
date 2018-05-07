@@ -60,8 +60,8 @@
                     <a href="/applications/<%= application._id %>" class="more-info"> More Info</a>
                     <div class="row">
                         <div class="col-md-6 index-rating">
-                            <label for="rating">Public</label>
-                            <select class="star-rating-ro public-rating" name="design">
+                            <label for="rating">Play Store</label>
+                            <select class="star-rating-ro public-rating" data-current-rating="<%= application.rating.playStore %>" name="playstore">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -71,7 +71,7 @@
                         </div>
                         <div class="col-md-6 index-rating">
                             <label for="rating">EducApps</label>
-                            <select class="star-rating-ro public-rating" name="design">
+                            <select class="star-rating-ro public-rating" data-current-rating="<%= application.rating.users %>" name="educapps">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

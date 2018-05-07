@@ -12,8 +12,8 @@
                     <div class="col-md-5">
                         <div class="row">
                             <div class="col-md-6">
-                                <label for="rating">Design</label>
-                                <select class="star-rating-ro" name="design">
+                                <label for="rating">Play Store</label>
+                                <select class="star-rating-ro" data-current-rating="<%= application.rating.playStore %>" name="playstore">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -22,30 +22,8 @@
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label for="rating">Effectiveness</label>
-                                <select class="star-rating-ro" name="effectiveness">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="rating">Usability</label>
-                                <select class="star-rating-ro" name="usability">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="rating">Content</label>
-                                <select class="star-rating-ro" name="content">
+                                <label for="rating">EducApps Rating</label>
+                                <select class="star-rating-ro" data-current-rating="<%= application.rating.users %>" name="educapps">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -121,7 +99,11 @@
                         <h3>
                             <a class="text-dark"><%= review.title %></a>
                         </h3>
-                        <p>Submitted by <span class="review-author"><%= review.author.name %></span></p>
+                        <% if (!review.isAnonymous) { %>
+                            <p>Submitted by <span class="review-author"><%= review.author.name %></span></p>
+                        <% } else { %>
+                            <p>Anonymous Reviewer</p>
+                        <% } %>
                         <p class="submitted"><%= moment(review.created).fromNow() %></p>
                         <p class="card-text mb-auto text-muted">
                             <%= review.description %>
@@ -131,7 +113,7 @@
                         <div class="row text-center">
                             <div class="col-md-6">
                                 <label for="rating">Design</label>
-                                <select class="star-rating-ro" name="design">
+                                <select class="star-rating-ro review-rating" data-current-rating="<%= review.rating.design %>" name="design">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -141,7 +123,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="rating">Effectiveness</label>
-                                <select class="star-rating-ro" name="effectiveness">
+                                <select class="star-rating-ro review-rating" data-current-rating="<%= review.rating.effectiveness %>" name="effectiveness">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -153,7 +135,7 @@
                         <div class="row text-center">
                             <div class="col-md-6">
                                 <label for="rating">Usability</label>
-                                <select class="star-rating-ro" name="usability">
+                                <select class="star-rating-ro review-rating" data-current-rating="<%= review.rating.usability %>" name="usability">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -163,7 +145,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="rating">Content</label>
-                                <select class="star-rating-ro" name="content">
+                                <select class="star-rating-ro review-rating" data-current-rating="<%= review.rating.content %>" name="content">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -253,7 +235,8 @@
                     </div>
 
                     <div class="form-group form-check">
-                        <input type="checkbox" id="anoncheck" onclick="checkAnon()" name="anon" value="true" checked/>
+                        <input type="hidden" name="anon[0]" value="false"/>
+                        <input type="checkbox" id="anoncheck" name="anon[0]" value="true"/>
                         <label class="form-check-label" for="anon">Remain Anonymous</label>
                     </div>
 

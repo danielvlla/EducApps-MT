@@ -30,7 +30,7 @@ router.post("", middleware.isLoggedIn, function(req, res){
 
             var avg = sum/rating.length;
 
-            console.log(req.body.anon);
+            req.body.anon = req.body.anon.map(item => (Array.isArray(item) && item[1]) || "false");
 
             // Create New Review
             var newReview = {
@@ -47,8 +47,8 @@ router.post("", middleware.isLoggedIn, function(req, res){
                     id: req.user._id,
                     name: req.user.name.firstName + " " + req.user.name.lastName
                 },
-                isAnonymous: req.body.anon
-            };
+                isAnonymous: req.body.anon[0]
+        };
 
             Review.create(newReview, function(err, review){
                 if (err){

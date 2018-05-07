@@ -10,10 +10,6 @@ if ($("#success").length){
     });
 }
 
-$(function(){
-    $(".public-rating").barrating("set", 4);
-});
-
 let filterApps = document.getElementById("filterApps");
 filterApps.addEventListener("keyup", filterNames);
 
@@ -35,12 +31,5 @@ function filterNames(){
         } else {
             containersApp[i].style.display = "none";
         }
-    }
-}
-
-function checkAnon(){
-    var checkbox = document.getElementById("anoncheck");
-    if (checkbox.checked != true){
-        checkbox.value = "false";
     }
 }

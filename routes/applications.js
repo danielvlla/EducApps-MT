@@ -110,7 +110,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
             var appTitle = $('.AHFaub').find('span').text();
             var appDescription = $('.DWPxHb').find('content').find('div').text();
             var appImageUrl = $('.dQrBL').find('img').attr('src').toString();
-            var playStoreRating = $('.BHMmbe').text();
+            var playRating = $('.BHMmbe').text();
             var author = {
                 id: req.user._id,
                 username: req.user.email
@@ -121,7 +121,10 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
             validator.isEmpty(appTitle);
             validator.isEmpty(appDescription);
             validator.isEmpty(appImageUrl);
-            validator.isEmpty(playStoreRating);
+            validator.isEmpty(playRating);
+
+            playRating = Number(playRating);
+            playRating = Math.round(playRating);
 
             Application.findOne({name: appTitle}, function(err, existingApp){
                 if (existingApp == null){
@@ -130,7 +133,9 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
                         name: appTitle,
                         description: appDescription,
                         thumbnail: appImageUrl,
-                        playStore: playStoreRating,
+                        rating: {
+                            playStore: playRating
+                        },
                         author: author,
                         category: category
                     };
