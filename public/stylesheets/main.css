@@ -46,7 +46,7 @@ body {
 .page-login {
     color: white;
     margin-top: -100px;
-    height: 30vh;
+    height: 400px;
     background: #00d2ff;
     background: -webkit-linear-gradient(to right, #3a7bd5, #00d2ff);
     background: linear-gradient(to right, #3a7bd5, #00d2ff);
