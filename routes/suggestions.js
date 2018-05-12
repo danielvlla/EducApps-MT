@@ -11,11 +11,15 @@ var validator       = require("validator");
 
 // INDEX ROUTE - Show All Suggestions
 router.get("/", function(req, res){
-    Suggestion.find({}, function(err, allSuggestions){
+    Suggestion.find({}).populate("comments").exec(function(err, allSuggestions){
         if (err) {
             console.log(err);
         } else {
-            res.render("suggestions/index", {suggestions: allSuggestions});
+            if(req.user && req.user.isAdmin) {
+                res.render("suggestions/indexAdmin", {suggestions: allSuggestions});
+            } else {
+                res.render("suggestions/index", {suggestions: allSuggestions});
+            }
         }
     });
 });
