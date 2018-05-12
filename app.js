@@ -7,6 +7,7 @@ var express         = require("express"),
     passport        = require("passport"),
     cookieParser    = require("cookie-parser"),
     LocalStrategy   = require("passport-local").Strategy,
+    ensureLogin     = require("connect-ensure-login"),
     methodOverride  = require("method-override");
 
 // MODELS
@@ -62,6 +63,10 @@ app.use("/applications", applicationRoutes);
 app.use("/applications/:id/reviews/", reviewRoutes),
 app.use("/suggestions", suggestionRoutes),
 app.use("/suggestions/:id/comments/", commentRoutes);
+
+app.get("*", function(req, res){
+   res.render("notfound");
+});
 
 app.listen(process.env.PORT || 3000, function(){
     console.log("EducAppsMT is running on port 3000");

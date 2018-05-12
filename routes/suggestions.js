@@ -1,8 +1,9 @@
-var express     = require("express");
-var router      = express.Router();
-var Suggestion  = require("../models/suggestion");
-var middleware  = require("../middleware");
-var validator   = require("validator");
+var express         = require("express");
+var router          = express.Router();
+var Suggestion      = require("../models/suggestion");
+var middleware      = require("../middleware");
+var ensureLoggedIn  = require("connect-ensure-login").ensureLoggedIn;
+var validator       = require("validator");
 
 // ================================
 // APPLICATION ROUTES
@@ -19,13 +20,38 @@ router.get("/", function(req, res){
     });
 });
 
-// NEW ROUTE - Show form to create new application
-router.get("/new", middleware.isLoggedIn, function(req, res) {
+router.get("/category/:category", function(req, res){
+    var cat = req.params.category.charAt(0).toUpperCase() + req.params.category.slice(1);
+    Suggestion.find({ "category": cat } , function(err, allSuggestions){
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("suggestions/index.ejs", {suggestions: allSuggestions});
+        }
+    });
+});
+
+// NEW ROUTE - Show form to create new suggestion
+router.get("/new", ensureLoggedIn("/login"), function(req, res) {
     res.render("suggestions/new");
 });
 
-// CREATE ROUTE - Add New Application
-router.post("/", middleware.isLoggedIn, function(req, res) {
+// CREATE ROUTE - Add New suggestion
+router.post("/", ensureLoggedIn("/login"), function(req, res) {
+
+    validator.isEmpty(req.body.suggestionTitle);
+    var author = {
+        id: req.user._id,
+        username: req.user.email
+    };
+    var title = req.body.suggestionTitle.charAt(0).toUpperCase() + req.body.suggestionTitle.slice(1);
+
+    var newSuggestion = new Suggestion({
+        name: title,
+        category: req.body.category,
+        description: req.body.suggestionDescription,
+        author: author
+    });
 
     Suggestion.create(newSuggestion, function(err, newlyCreated) {
         if (err) {
@@ -38,7 +64,7 @@ router.post("/", middleware.isLoggedIn, function(req, res) {
     });
 });
 
-// SHOW ROUTE - Show an Application
+// SHOW ROUTE - Show a suggestion
 router.get("/:id", function(req, res){
     Suggestion.findById(req.params.id).populate("comments").exec(function(err, foundSuggestion){
         if (err || !foundSuggestion) {
@@ -52,14 +78,14 @@ router.get("/:id", function(req, res){
 });
 
 // EDIT ROUTE
-router.get("/:id/edit", middleware.isLoggedIn, function(req, res){
+router.get("/:id/edit", ensureLoggedIn("/login"), function(req, res){
     Suggestion.findById(req.params.id, function(err, foundSuggestion){
         res.render("suggestions/edit", {suggestion: foundSuggestion});
     });
 });
 
 // UPDATE ROUTE
-router.put("/:id", middleware.isLoggedIn, function(req, res){
+router.put("/:id", ensureLoggedIn("/login"), function(req, res){
     Suggestion.findByIdAndUpdate(req.params.id, req.body.suggestion, function(err, updatedSuggestion){
         if(err){
             res.redirect("/suggestions");
@@ -70,7 +96,7 @@ router.put("/:id", middleware.isLoggedIn, function(req, res){
 });
 
 // DESTROY ROUTE
-router.delete("/:id", middleware.isLoggedIn, function(req, res){
+router.delete("/:id", ensureLoggedIn("/login"), function(req, res){
     Suggestion.findByIdAndRemove(req.params.id, function(err){
         if(err){
             res.redirect("/suggestions");

@@ -1,0 +1,61 @@
+<% include ../partials/_header %>
+<% include ../partials/_navbar %>
+
+<div class="page-header">
+    <div class="container">
+        <div class="jumbotron text-center bg-transparent">
+            <h1 class="jumbotron-heading">Admin Panel</h1>
+            <p class="lead">Reviewed educational apps from teachers or parents.</p>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+
+        <% include ../partials/_alerts %>
+
+        <div class="col-lg-12 text-muted">
+
+            <table id="appsAdmin" class="table table-striped table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Rating Play Store</th>
+                        <th>Rating Users</th>
+                        <th>Date Created</th>
+                        <th>Reviews</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <% applications.forEach(function(application){ %>
+                        <tr>
+                            <td><a href="<%= application.url %>"><%= application.name %></a></td>
+                            <td><%= application.category %></td>
+                            <td><%= application.rating.playStore %></td>
+                            <td><%= Math.round(application.rating.users) %></td>
+                            <td><%= application.created.toDateString() %></td>
+                            <td><%= application.reviews.length %></td>
+                            <td>
+                                <form action="/applications/<%= application._id %>/edit">
+                                    <button class="review-delete btn btn-sm btn-outline-warning">Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/applications/<%= application._id %>?_method=DELETE" method="post">
+                                    <button class="review-delete btn btn-sm btn-outline-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/_footer %>

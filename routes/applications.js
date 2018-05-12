@@ -1,10 +1,11 @@
-var express     = require("express");
-var router      = express.Router();
-var Application = require("../models/application");
-var rp          = require('request-promise');
-var cheerio     = require('cheerio');
-var middleware  = require("../middleware");
-var validator   = require("validator");
+var express         = require("express");
+var router          = express.Router();
+var Application     = require("../models/application");
+var rp              = require('request-promise');
+var cheerio         = require('cheerio');
+var middleware      = require("../middleware");
+var ensureLoggedIn  = require("connect-ensure-login").ensureLoggedIn;
+var validator       = require("validator");
 
 // ================================
 // APPLICATION ROUTES
@@ -12,67 +13,22 @@ var validator   = require("validator");
 
 // INDEX ROUTE - Show All Applications
 router.get("/", function(req, res){
-    Application.find({}, function(err, allApplications){
+    Application.find({}).populate("reviews").exec(function(err, allApplications){
         if (err) {
             console.log(err);
         } else {
-            res.render("applications/index.ejs", {applications: allApplications});
+            if(req.user && req.user.isAdmin) {
+                res.render("applications/indexAdmin.ejs", {applications: allApplications});
+            } else {
+                res.render("applications/index.ejs", {applications: allApplications});
+            }
         }
     });
 });
 
-router.get("/maths", function(req, res){
-    Application.find({ "category": "Maths" } , function(err, allApplications){
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("applications/index.ejs", {applications: allApplications});
-        }
-    });
-});
-
-router.get("/religion", function(req, res){
-    Application.find({ "category": "Religion" } , function(err, allApplications){
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("applications/index.ejs", {applications: allApplications});
-        }
-    });
-});
-
-router.get("/socialstudies", function(req, res){
-    Application.find({ "category": "Social Studies" } , function(err, allApplications){
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("applications/index.ejs", {applications: allApplications});
-        }
-    });
-});
-
-router.get("/english", function(req, res){
-    Application.find({ "category": "English" } , function(err, allApplications){
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("applications/index.ejs", {applications: allApplications});
-        }
-    });
-});
-
-router.get("/maltese", function(req, res){
-    Application.find({ "category": "Maltese" } , function(err, allApplications){
-        if (err) {
-            console.log(err);
-        } else {
-            res.render("applications/index.ejs", {applications: allApplications});
-        }
-    });
-});
-
-router.get("/general", function(req, res){
-    Application.find({ "category": "General" } , function(err, allApplications){
+router.get("/category/:category", function(req, res){
+    var cat = req.params.category.charAt(0).toUpperCase() + req.params.category.slice(1);
+    Application.find({ "category": cat } , function(err, allApplications){
         if (err) {
             console.log(err);
         } else {
@@ -82,12 +38,12 @@ router.get("/general", function(req, res){
 });
 
 // NEW ROUTE - Show form to create new application
-router.get("/new", middleware.isLoggedIn, function(req, res) {
+router.get("/new", ensureLoggedIn("/login"), function(req, res) {
     res.render("applications/new");
 });
 
 // CREATE ROUTE - Add New Application
-router.post("/", middleware.isLoggedIn, function(req, res) {
+router.post("/", ensureLoggedIn("/login"), function(req, res) {
 
     validator.isEmpty(req.body.appUrl);
 

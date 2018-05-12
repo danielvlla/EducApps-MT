@@ -146,6 +146,33 @@ $(function(){
         }
     });
 
+    $(".suggestion-new").validate({
+        rules: {
+            suggestionTitle: {
+                required: true,
+                maxlength: 100
+            },
+            category: {
+                required: true
+            },
+            suggestionDescription: {
+                required: true
+            }
+        },
+        messages: {
+            suggestionTitle: {
+                required: "Name of your idea is required.",
+                maxLength: "Exceed the 100 characters"
+            },
+            category: {
+                required: "Category is required"
+            },
+            suggestionDescription: {
+                required: "Provide a short description of your idea."
+            }
+        }
+    });
+
     $(".review-new").validate({
         rules: {
             title: {

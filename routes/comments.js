@@ -1,95 +1,54 @@
-var express     = require("express");
-var router      = express.Router({mergeParams: true});
-var Application = require("../models/application");
-var Comment     = require("../models/comment");
-var middleware  = require("../middleware");
-var validator   = require("validator");
+var express         = require("express");
+var router          = express.Router({mergeParams: true});
+var Suggestion      = require("../models/suggestion");
+var Comment         = require("../models/comment");
+var ensureLoggedIn  = require("connect-ensure-login").ensureLoggedIn;
+var validator       = require("validator");
 
 // ================================
-// REVIEW ROUTES
+// Comment ROUTES
 // ================================
 
-// Submit Review ie. Create Review
-router.post("", middleware.isLoggedIn, function(req, res){
+// Submit Comment
+router.post("", ensureLoggedIn("/login"), function(req, res){
     // Look up application
-    Application.findById(req.params.id, function(err, application){
+    Suggestion.findById(req.params.id, function(err, suggestion){
         if (err) {
-            req.flash("error", "Application not found");
+            req.flash("error", "Suggestion not found");
             res.redirect("/applications");
         } else {
-            validator.isEmpty(req.body.title);
             validator.isEmpty(req.body.description);
 
-            var rating = [req.body.design, req.body.effectiveness, req.body.usability, req.body.content];
-
-            var sum = 0;
-            for( var i = 0; i < rating.length; i++ ){
-                sum += parseInt(rating[i], 10);
-            }
-
-            var avg = sum/rating.length;
-
-            req.body.anon = req.body.anon.map(item => (Array.isArray(item) && item[1]) || "false");
-
-            // Create New Review
-            var newReview = {
-                title: req.body.title.charAt(0).toUpperCase() + req.body.title.slice(1),
+            // Create New Comment
+            var newComment = {
                 description: req.body.description.charAt(0).toUpperCase() + req.body.description.slice(1),
-                rating: {
-                    design: req.body.design,
-                    effectiveness: req.body.effectiveness,
-                    usability: req.body.usability,
-                    content: req.body.content,
-                    total: avg
-                },
                 author: {
                     id: req.user._id,
                     name: req.user.name.firstName + " " + req.user.name.lastName
                 },
-                isAnonymous: req.body.anon[0]
             };
 
-            Review.create(newReview, function(err, review){
+            Comment.create(newComment, function(err, comment){
                 if (err){
-                    req.flash("error", "Review could not be submitted");
+                    req.flash("error", "Comment could not be submitted");
                 } else {
-                    var numOfReviews = application.reviews.length;
-                    var usersRating = application.rating.users;
-
-                    if (application.reviews.length == 0) {
-                        application.rating.users = review.rating.total;
-                    } else {
-                        application.rating.users = usersRating + ((review.rating.total - usersRating) / (numOfReviews+1));
-                    }
-
-                    review.save();
-                    application.reviews.push(review._id);
-                    application.save();
-                    res.redirect("/applications/" + application._id);
+                    comment.save();
+                    suggestion.comments.push(comment._id);
+                    suggestion.save();
+                    res.redirect("/suggestions/" + suggestion._id);
                 }
             });
         }
     });
 });
 
-// COMMENT UPDATE ROUTE
-router.put("/:review_id", function(req, res){
-    Review.findByIdAndUpdate(req.params.review_id, req.body.review, function(err, updatedReview){
-        if (err) {
-            res.redirect("back");
-        } else {
-            res.redirect("/applications/" + req.params.id);
-        }
-    });
-});
-
 // COMMENT DESTROY ROUTE
-router.delete("/:review_id", function(req, res){
-    Review.findByIdAndRemove(req.params.review_id, function(err){
+router.delete("/:comment_id", ensureLoggedIn("/login"), function(req, res){
+    Comment.findByIdAndRemove(req.params.comment_id, function(err){
         if (err){
             res.redirect("back");
         } else {
-            res.redirect("/applications/" + req.params.id);
+            res.redirect("/suggestions/" + req.params.id);
         }
     });
 });

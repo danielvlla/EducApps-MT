@@ -4,13 +4,13 @@ var Application = require("../models/application"),
 
 var middlewareObj = {};
 
-middlewareObj.isLoggedIn = function(req, res, next){
-    if(req.isAuthenticated()){
-        return next();
-    }
-    req.flash("error", "Please login first!");
-    res.redirect("/login");
-};
+// middlewareObj.isLoggedIn = function(req, res, next){
+//     if(req.isAuthenticated()){
+//         return next();
+//     }
+//     req.flash("error", "Please login first!");
+//     res.redirect("/login");
+// };
 
 middlewareObj.checkReviewOwnership = function(req, res, next){
     // Is user logged in?

@@ -3,6 +3,7 @@ var router      = express.Router({mergeParams: true});
 var Application = require("../models/application");
 var Review      = require("../models/review");
 var middleware  = require("../middleware");
+var ensureLoggedIn  = require("connect-ensure-login").ensureLoggedIn;
 var validator   = require("validator");
 
 // ================================
@@ -10,7 +11,7 @@ var validator   = require("validator");
 // ================================
 
 // Submit Review ie. Create Review
-router.post("", middleware.isLoggedIn, function(req, res){
+router.post("", ensureLoggedIn("/login"), function(req, res){
     // Look up application
     Application.findById(req.params.id, function(err, application){
         if (err) {
@@ -72,8 +73,8 @@ router.post("", middleware.isLoggedIn, function(req, res){
     });
 });
 
-// COMMENT UPDATE ROUTE
-router.put("/:review_id", function(req, res){
+// REVIEW UPDATE ROUTE
+router.put("/:review_id", ensureLoggedIn("/login"), function(req, res){
     Review.findByIdAndUpdate(req.params.review_id, req.body.review, function(err, updatedReview){
         if (err) {
             res.redirect("back");
@@ -83,8 +84,8 @@ router.put("/:review_id", function(req, res){
     });
 });
 
-// COMMENT DESTROY ROUTE
-router.delete("/:review_id", function(req, res){
+// REVIEW DESTROY ROUTE
+router.delete("/:review_id", ensureLoggedIn("/login"), function(req, res){
     Review.findByIdAndRemove(req.params.review_id, function(err){
         if (err){
             res.redirect("back");

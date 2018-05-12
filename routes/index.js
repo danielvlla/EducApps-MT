@@ -1,9 +1,10 @@
-var express     = require("express");
-var router      = express.Router();
-var passport    = require("passport");
-var User        = require("../models/user");
-var middleware  = require("../middleware");
-var validator   = require("validator");
+var express         = require("express");
+var router          = express.Router();
+var passport        = require("passport");
+var User            = require("../models/user");
+var middleware      = require("../middleware");
+var ensureLoggedIn  = require("connect-ensure-login").ensureLoggedIn;
+var validator       = require("validator");
 
 // ================================
 // GENERIC ROUTES
@@ -14,8 +15,7 @@ router.get("/", function(req, res){
     res.render("landing");
 });
 
-router.get("/profile", middleware.isLoggedIn, function(req, res){
-    console.log(req.user);
+router.get("/profile", ensureLoggedIn("/login"), function(req, res){
     res.render("profile", {user: req.user});
 });
 
@@ -62,7 +62,7 @@ router.get("/login", function(req, res){
 });
 
 router.post("/login",
-    passport.authenticate("local", { successredirect: "/applications", failureRedirect: "/login", failureFlash: true }),
+    passport.authenticate("local", { successReturnToOrRedirect: "/", failureRedirect: "/login", failureFlash: true }),
     function(req, res) {
         req.flash("success", "Logged you in!");
         res.redirect("/applications");

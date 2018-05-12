@@ -1,3 +1,7 @@
+$(document).ready(function() {
+    $("#appsAdmin").DataTable();
+} );
+
 if ($("#error").length){
     $(function() {
         $.growl.error({ message: $("#error").text() });

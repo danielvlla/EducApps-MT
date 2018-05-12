@@ -1,0 +1,106 @@
+<% include ../partials/_header %>
+<% include ../partials/_navbar %>
+
+<div class="suggestion-header">
+    <div class="container">
+
+        <% include ../partials/_alerts %>
+
+        <div class="jumbotron text-center bg-transparent">
+            <div class="row justify-content-md-center">
+                <div class="col-md-12">
+                    <h1 class="jumbotron-heading"><%= suggestion.name %></h1>
+                </div>
+                <div class="col-md-12 mt-3">
+                    <strong class="mb-2 ">Category // <%= suggestion.category %></strong>
+                </div>
+                <div class="col-md-8 mt-3">
+                    <p class="text-justify mb-auto">
+                        <%= suggestion.description %>
+                    </p>
+                </div>
+                <div class="col-md-8 mt-3">
+                    <% if(currentUser && suggestion.author.id.equals(currentUser._id)){ %>
+                    <form class="delete-form" action="/suggestions/<%= suggestion._id %>?_method=DELETE" method="post">
+                        <button class="review-delete btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Application Container -->
+<div class="container mt-5">
+
+    <!-- REVIEW SECTION START -->
+    <div class="row justify-content-md-center">
+        <div class="col-md-9 text-center">
+            <% if (currentUser) { %>
+            <button type="button" class="write-review-btn btn btn-outline-primary" data-toggle="modal" data-target="#ModalCenter">
+                Write your Comment
+            </button>
+            <% } else { %>
+            <button type="button" class="write-review-btn btn btn-outline-warning" data-toggle="modal" data-target="#ModalLogin">
+                Login to Comment
+            </button>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="col-md-12 mt-5">
+        <div class="row justify-content-center">
+            <% if (suggestion.comments.length === 0) { %>
+            <h6 class="text-muted">No Comments Yet</h6>
+            <% } %>
+            <% suggestion.comments.forEach(function(comment) { %>
+            <div class="col-md-8 box-shadow border review-show">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p>Submitted by <span class="comment-author"><%= comment.author.name %></span></p>
+                        <p class="submitted"><%= moment(comment.created).fromNow() %></p>
+                        <p class="card-text mb-auto text-muted">
+                            <%= comment.description %>
+                        </p>
+                    </div>
+                    <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                    <form class="delete-form" action="/suggestions/<%= suggestion._id %>/comments/<%= comment._id %>?_method=DELETE" method="post">
+                        <button class="review-delete btn btn-sm btn-outline-danger">Delete</button>
+                    </form>
+                    <% } %>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade reviewModal" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="ModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLongTitle">Write your Comment!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/suggestions/<%= suggestion._id %>/comments" method="POST" id="add-review-form" class="review-new">
+                    <div class="form-group">
+                        <label for="title">Your Comment</label>
+                        <textarea class="form-control" name="description" placeholder="Share your experience from using this application" type="text" form="add-review-form" class="text-muted"></textarea>
+                    </div>
+
+                    <hr>
+                    <div class="form-group text-center">
+                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" value="Submit" class="btn btn-outline-success">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/_footer %>

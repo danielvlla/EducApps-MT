@@ -23,22 +23,22 @@
                     <a class="nav-link" href="/applications">All</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/applications/general">General</a>
+                    <a class="nav-link" href="/applications/category/General">General</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/applications/maths">Maths</a>
+                    <a class="nav-link" href="/applications/category/Maths">Maths</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/applications/religion">Religion</a>
+                    <a class="nav-link" href="/applications/category/Religion">Religion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/applications/socialstudies">Social Studies</a>
+                    <a class="nav-link" href="/applications/category/Socialstudies">Social Studies</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/applications/english">English</a>
+                    <a class="nav-link" href="/applications/category/English">English</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/applications/maltese">Maltese</a>
+                    <a class="nav-link" href="/applications/category/Maltese">Maltese</a>
                 </li>
             </ul>
             <form class="form-inline mt-4 justify-content-center">
@@ -57,7 +57,8 @@
                     <img src="<%= application.thumbnail %>" alt="Card image cap" class="app-image">
                     <p class="container-title"><%= application.name %></p>
                     <p class="text-muted container-category"><%= application.category %></p>
-                    <a href="/applications/<%= application._id %>" class="more-info"> More Info</a>
+                    <a href="/applications/<%= application._id %>" class="default-link"></a>
+                    <a href="/applications/<%= application._id %>" class="more-info">Click for more info</a>
                     <div class="row">
                         <div class="col-md-6 index-rating">
                             <label for="rating">Play Store</label>
