@@ -85,12 +85,33 @@ router.put("/:review_id", ensureLoggedIn("/login"), function(req, res){
 });
 
 // REVIEW DESTROY ROUTE
-router.delete("/:review_id", ensureLoggedIn("/login"), function(req, res){
-    Review.findByIdAndRemove(req.params.review_id, function(err){
-        if (err){
-            res.redirect("back");
+router.delete("/:review_id", ensureLoggedIn("/login"), function(req, res) {
+    Application.findById(req.params.id, function (err, application) {
+        if (err) {
+            req.flash("error", "Application not found");
+            res.redirect("/applications");
         } else {
-            res.redirect("/applications/" + req.params.id);
+            Review.findById(req.params.review_id, function(err, review){
+                if (err) {
+                    req.flash("error", "Something went wrong");
+                    res.redirect("back");
+                } else {
+                    var numOfReviews = application.reviews.length;
+                    var usersAvgRating = application.rating.users;
+                    var reviewToBeDeletedRating = review.rating.total;
+
+                    review.remove();
+
+                    if (numOfReviews == 1) {
+                        application.rating.users = 0;
+                    } else {
+                        application.rating.users = ((usersAvgRating * numOfReviews)-reviewToBeDeletedRating) / (numOfReviews-1);
+                    }
+
+                    application.save();
+                    res.redirect("/applications/" + req.params.id);
+                }
+            });
         }
     });
 });
