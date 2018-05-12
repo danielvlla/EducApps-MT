@@ -57,7 +57,7 @@ router.post("", ensureLoggedIn("/login"), function(req, res){
                     var numOfReviews = application.reviews.length;
                     var usersRating = application.rating.users;
 
-                    if (application.reviews.length == 0) {
+                    if (numOfReviews == 0) {
                         application.rating.users = review.rating.total;
                     } else {
                         application.rating.users = usersRating + ((review.rating.total - usersRating) / (numOfReviews+1));
@@ -100,13 +100,13 @@ router.delete("/:review_id", ensureLoggedIn("/login"), function(req, res) {
                     var usersAvgRating = application.rating.users;
                     var reviewToBeDeletedRating = review.rating.total;
 
-                    review.remove();
-
-                    if (numOfReviews == 1) {
+                    if (numOfReviews === 1) {
                         application.rating.users = 0;
                     } else {
                         application.rating.users = ((usersAvgRating * numOfReviews)-reviewToBeDeletedRating) / (numOfReviews-1);
                     }
+
+                    application.reviews.remove(review._id);
 
                     application.save();
                     res.redirect("/applications/" + req.params.id);
