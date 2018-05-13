@@ -5,7 +5,6 @@ var express         = require("express"),
     session         = require("express-session"),
     mongoose        = require("mongoose"),
     passport        = require("passport"),
-    cookieParser    = require("cookie-parser"),
     LocalStrategy   = require("passport-local").Strategy,
     ensureLogin     = require("connect-ensure-login"),
     methodOverride  = require("method-override");
@@ -30,7 +29,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
-app.use(cookieParser("secret"));
 app.use(express.static(__dirname + "/public"));
 app.locals.moment = require("moment");
 app.use(flash());

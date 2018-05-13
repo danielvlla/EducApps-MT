@@ -33,7 +33,7 @@
                 <tbody>
                 <% suggestions.forEach(function(suggestion){ %>
                 <tr>
-                    <td><%= suggestion.name %></td>
+                    <td><a href="/suggestions/<%= suggestion._id %>"><%= suggestion.name %></a></td>
                     <td><%= suggestion.description %></td>
                     <td><%= suggestion.category %></td>
                     <td><%= suggestion.created.toDateString() %></td>

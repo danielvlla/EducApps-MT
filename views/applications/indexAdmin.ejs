@@ -34,7 +34,7 @@
                 <tbody>
                     <% applications.forEach(function(application){ %>
                         <tr>
-                            <td><a href="<%= application.url %>"><%= application.name %></a></td>
+                            <td><a href="/applications/<%= application._id %>"><%= application.name %></a></td>
                             <td><%= application.category %></td>
                             <td><%= application.rating.playStore %></td>
                             <td><%= Math.round(application.rating.users) %></td>
