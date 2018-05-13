@@ -43,7 +43,7 @@ router.post("", ensureLoggedIn("/login"), function(req, res){
 });
 
 // COMMENT DESTROY ROUTE
-router.delete("/:comment_id", ensureLoggedIn("/login"), function(req, res){
+router.delete("/:comment_id", middleware.checkCommentOwnership, function(req, res){
     Comment.findByIdAndRemove(req.params.comment_id, function(err){
         if (err){
             res.redirect("back");

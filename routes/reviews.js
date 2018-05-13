@@ -74,7 +74,7 @@ router.post("", ensureLoggedIn("/login"), function(req, res){
 });
 
 // REVIEW UPDATE ROUTE
-router.put("/:review_id", ensureLoggedIn("/login"), function(req, res){
+router.put("/:review_id", middleware.checkReviewOwnership, function(req, res){
     Review.findByIdAndUpdate(req.params.review_id, req.body.review, function(err, updatedReview){
         if (err) {
             res.redirect("back");
@@ -85,7 +85,7 @@ router.put("/:review_id", ensureLoggedIn("/login"), function(req, res){
 });
 
 // REVIEW DESTROY ROUTE
-router.delete("/:review_id", ensureLoggedIn("/login"), function(req, res) {
+router.delete("/:review_id", middleware.checkReviewOwnership, function(req, res) {
     Application.findById(req.params.id, function (err, application) {
         if (err) {
             req.flash("error", "Application not found");

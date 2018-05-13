@@ -4,14 +4,6 @@ var Application = require("../models/application"),
 
 var middlewareObj = {};
 
-// middlewareObj.isLoggedIn = function(req, res, next){
-//     if(req.isAuthenticated()){
-//         return next();
-//     }
-//     req.flash("error", "Please login first!");
-//     res.redirect("/login");
-// };
-
 middlewareObj.checkReviewOwnership = function(req, res, next){
     // Is user logged in?
     if (req.isAuthenticated()){
@@ -24,6 +16,50 @@ middlewareObj.checkReviewOwnership = function(req, res, next){
                 // first one is a mongoose object and the req.user._id
                 // is a string so you cant compare with ===
                 if (foundReview.author.id.equals(req.user._id)) {
+                    next();
+                } else {
+                    req.flash("error", "You don't have permission to do that");
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        req.flash("error", "You need to be logged in");
+        res.redirect("back");
+    }
+};
+
+middlewareObj.checkSuggestionOwnership = function(req, res, next){
+    // Is user logged in?
+    if (req.isAuthenticated()){
+        Suggestion.findById(req.params.suggestion_id, function(err, foundSuggestion){
+            if (err || !foundSuggestion){
+                req.flash("error", "Suggestion not found");
+                res.redirect("back");
+            } else {
+                if (foundSuggestion.author.id.equals(req.user._id)) {
+                    next();
+                } else {
+                    req.flash("error", "You don't have permission to do that");
+                    res.redirect("back");
+                }
+            }
+        });
+    } else {
+        req.flash("error", "You need to be logged in");
+        res.redirect("back");
+    }
+};
+
+middlewareObj.checkCommentOwnership = function(req, res, next){
+    // Is user logged in?
+    if (req.isAuthenticated()){
+        Comment.findById(req.params.comment_id, function(err, foundComment){
+            if (err || !foundComment){
+                req.flash("error", "Suggestion not found");
+                res.redirect("back");
+            } else {
+                if (foundComment.author.id.equals(req.user._id)) {
                     next();
                 } else {
                     req.flash("error", "You don't have permission to do that");

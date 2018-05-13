@@ -6,7 +6,7 @@ var ensureLoggedIn  = require("connect-ensure-login").ensureLoggedIn;
 var validator       = require("validator");
 
 // ================================
-// APPLICATION ROUTES
+// SUGGESTION ROUTES
 // ================================
 
 // INDEX ROUTE - Show All Suggestions
@@ -82,14 +82,14 @@ router.get("/:id", function(req, res){
 });
 
 // EDIT ROUTE
-router.get("/:id/edit", ensureLoggedIn("/login"), function(req, res){
+router.get("/:id/edit", middleware.checkSuggestionOwnership, function(req, res){
     Suggestion.findById(req.params.id, function(err, foundSuggestion){
         res.render("suggestions/edit", {suggestion: foundSuggestion});
     });
 });
 
 // UPDATE ROUTE
-router.put("/:id", ensureLoggedIn("/login"), function(req, res){
+router.put("/:id", middleware.checkSuggestionOwnership, function(req, res){
     Suggestion.findByIdAndUpdate(req.params.id, req.body.suggestion, function(err, updatedSuggestion){
         if(err){
             res.redirect("/suggestions");
@@ -100,7 +100,7 @@ router.put("/:id", ensureLoggedIn("/login"), function(req, res){
 });
 
 // DESTROY ROUTE
-router.delete("/:id", ensureLoggedIn("/login"), function(req, res){
+router.delete("/:id", middleware.checkSuggestionOwnership, function(req, res){
     Suggestion.findByIdAndRemove(req.params.id, function(err){
         if(err){
             res.redirect("/suggestions");
