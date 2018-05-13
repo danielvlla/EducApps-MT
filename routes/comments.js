@@ -2,6 +2,7 @@ var express         = require("express");
 var router          = express.Router({mergeParams: true});
 var Suggestion      = require("../models/suggestion");
 var Comment         = require("../models/comment");
+var middleware      = require("../middleware");
 var ensureLoggedIn  = require("connect-ensure-login").ensureLoggedIn;
 var validator       = require("validator");
 

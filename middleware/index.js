@@ -1,5 +1,7 @@
 var Application = require("../models/application"),
     User        = require("../models/user"),
+    Comment     = require("../models/comment"),
+    Suggestion  = require("../models/suggestion"),
     Review      = require("../models/review");
 
 var middlewareObj = {};
