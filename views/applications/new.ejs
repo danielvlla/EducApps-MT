@@ -16,25 +16,28 @@
 
             <% include ../partials/_alerts %>
 
-            <form action="/applications" method="post" class="app-new">
-                <div class="mt-5 form-group py-2">
-                    <label>App URL</label>
-                    <input type="text" class="form-control app-url" name="appUrl" placeholder="App URL">
-                    <small class="form-text text-muted">Make sure you pasted the correct URL.</small>
-                </div>
+            <div class="col-md-4">
+                <form action="/applications" method="post" class="app-new">
+                    <div class="mt-5 form-group py-2">
+                        <label>App URL</label>
+                        <input type="text" class="form-control app-url" name="appUrl" placeholder="App URL">
+                        <small class="form-text text-muted">Make sure you pasted the correct URL.</small>
+                    </div>
 
-                <div class="form-group py-2">
-                    <select class="form-control" name="category">
-                        <option value="General">General</option>
-                        <option value="Maths">Maths</option>
-                        <option value="English">English</option>
-                        <option value="Maltese">Maltese</option>
-                        <option value="Religion">Religion</option>
-                        <option value="Social Studies">Social Studies</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit App!</button>
-            </form>
+                    <div class="form-group py-2">
+                        <select class="form-control" name="category">
+                            <option value="category" disabled selected>Select Category</option>
+                            <option value="General">General</option>
+                            <option value="Maths">Maths</option>
+                            <option value="English">English</option>
+                            <option value="Maltese">Maltese</option>
+                            <option value="Religion">Religion</option>
+                            <option value="Social Studies">Social Studies</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit App!</button>
+                </form>
+            </div>
         </div>
     </div>
 

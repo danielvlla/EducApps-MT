@@ -22,7 +22,7 @@
                 <div class="col-md-8 mt-3">
                     <% if(currentUser && suggestion.author.id.equals(currentUser._id)){ %>
                     <form class="delete-form" action="/suggestions/<%= suggestion._id %>?_method=DELETE" method="post">
-                        <button class="review-delete btn btn-sm btn-outline-danger">Delete</button>
+                        <button class="review-delete btn btn-sm btn-danger">Delete</button>
                     </form>
                     <% } %>
                 </div>
@@ -65,9 +65,11 @@
                         </p>
                     </div>
                     <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
-                    <form class="delete-form" action="/suggestions/<%= suggestion._id %>/comments/<%= comment._id %>?_method=DELETE" method="post">
-                        <button class="review-delete btn btn-sm btn-outline-danger">Delete</button>
-                    </form>
+                    <div class="col-md-4">
+                        <form class="delete-form" action="/suggestions/<%= suggestion._id %>/comments/<%= comment._id %>?_method=DELETE" method="post">
+                            <button class="comment-delete float-right btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
                     <% } %>
                 </div>
             </div>

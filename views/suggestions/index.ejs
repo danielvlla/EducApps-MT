@@ -53,6 +53,7 @@
                 <div class="box-shadow text-center suggestion-container">
                     <h6 class="container-title"><%= suggestion.name %></h6>
                     <p class="text-muted container-category"><%= suggestion.category %></p>
+                    <a href="/suggestions/<%= suggestion._id %>" class="default-link"></a>
                     <a href="/suggestions/<%= suggestion._id %>" class="more-info btn btn-primary"> More Info</a>
                 </div>
                 <% }) %>
