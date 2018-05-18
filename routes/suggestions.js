@@ -82,26 +82,26 @@ router.get("/:id", function(req, res){
 });
 
 // EDIT ROUTE
-router.get("/:id/edit", middleware.checkSuggestionOwnership, function(req, res){
-    Suggestion.findById(req.params.id, function(err, foundSuggestion){
+router.get("/:suggestion_id/edit", middleware.checkSuggestionOwnership, function(req, res){
+    Suggestion.findById(req.params.suggestion_id, function(err, foundSuggestion){
         res.render("suggestions/edit", {suggestion: foundSuggestion});
     });
 });
 
 // UPDATE ROUTE
-router.put("/:id", middleware.checkSuggestionOwnership, function(req, res){
-    Suggestion.findByIdAndUpdate(req.params.id, req.body.suggestion, function(err, updatedSuggestion){
+router.put("/:suggestion_id", middleware.checkSuggestionOwnership, function(req, res){
+    Suggestion.findByIdAndUpdate(req.params.suggestion_id, req.body.suggestion, function(err, updatedSuggestion){
         if(err){
             res.redirect("/suggestions");
         } else {
-            res.redirect("/suggestions/" + req.params.id);
+            res.redirect("/suggestions/" + req.params.suggestion_id);
         }
     });
 });
 
 // DESTROY ROUTE
-router.delete("/:id", middleware.checkSuggestionOwnership, function(req, res){
-    Suggestion.findByIdAndRemove(req.params.id, function(err){
+router.delete("/:suggestion_id", middleware.checkSuggestionOwnership, function(req, res){
+    Suggestion.findByIdAndRemove(req.params.suggestion_id, function(err){
         if(err){
             res.redirect("/suggestions");
         } else {

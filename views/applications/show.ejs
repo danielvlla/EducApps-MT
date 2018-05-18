@@ -100,7 +100,7 @@
                             <a class="text-dark"><%= review.title %></a>
                         </h3>
                         <% if (!review.isAnonymous) { %>
-                            <p>Submitted by <span class="review-author"><%= review.author.name %></span> | <%= review.author.email %></p>
+                            <p>Submitted by <span class="review-author"><%= review.author.name %></span></p>
                         <% } else { %>
                             <p>Anonymous Reviewer</p>
                         <% } %>

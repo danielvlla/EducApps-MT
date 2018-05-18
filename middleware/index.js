@@ -32,14 +32,13 @@ middlewareObj.checkReviewOwnership = function(req, res, next){
 };
 
 middlewareObj.checkSuggestionOwnership = function(req, res, next){
-    // Is user logged in?
     if (req.isAuthenticated()){
         Suggestion.findById(req.params.suggestion_id, function(err, foundSuggestion){
             if (err || !foundSuggestion){
                 req.flash("error", "Suggestion not found");
                 res.redirect("back");
             } else {
-                if (foundSuggestion.author.id.equals(req.user._id)) {
+                if (foundSuggestion.author.id.equals(req.user._id) || req.user.isAdmin) {
                     next();
                 } else {
                     req.flash("error", "You don't have permission to do that");

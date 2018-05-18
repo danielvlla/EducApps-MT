@@ -19,11 +19,14 @@
                         <%= suggestion.description %>
                     </p>
                 </div>
-                <div class="col-md-8 mt-3">
+                <div class="col-md-8 mt-5">
                     <% if(currentUser && suggestion.author.id.equals(currentUser._id)){ %>
-                    <form class="delete-form" action="/suggestions/<%= suggestion._id %>?_method=DELETE" method="post">
-                        <button class="review-delete btn btn-sm btn-danger">Delete</button>
-                    </form>
+                        <form action="/suggestions/<%= suggestion._id %>/edit">
+                            <button class="review-delete btn btn-sm btn-warning">Edit</button>
+                        </form>
+                        <form class="delete-form" action="/suggestions/<%= suggestion._id %>?_method=DELETE" method="post">
+                            <button class="review-delete btn btn-sm btn-danger">Delete</button>
+                        </form>
                     <% } %>
                 </div>
             </div>
